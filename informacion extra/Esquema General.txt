@@ -1,0 +1,55 @@
+
+Tecnologías usadas:
+	[Java: -jdk.16 -Eclipse IDE]
+	[Bases de Datos: -Neodatis -SQLite -SQLServer Microsoft]
+
+Función:
+	Llevar la gestion de un gimnasio:
+		-Administrativo: gestion de clases que se imparten, clientes y precios.
+
+		-Clientes: apuntarse a clases y actualizar datos.
+
+Esquema:
+	-Log-in empleado o cliente.
+	-Acceso a ventana de inicio concreto para el diferente log-in:
+		-Ejemplo:
+			____________________________________________
+			|º____________________________________-_O_X|
+			|     |     pestañas                       |
+			| B   |____________________________________|
+			| O   |                                    |
+			| T   |      movidas                       |
+			| O   |                                    |
+			| N   |                                    |
+			| E   |                                    |
+			| S   |                                    |
+			|     |                                    |
+			| N   |                                    |
+			| A   |                                    |
+			| V   |                                    |
+			| E   |                                    |
+			| G   |                                    |
+			| A   |                                    |
+			|_R___|____________________________________|
+
+	-Primera ventana de navegación usar Neodatis o SQLite para guardar usuarios
+		[nombre de usuario, contraseña y credencial [administrativo o cliente],
+		a demas:
+			-datos civiles [nombre completo, apellidos dni, edad (para precios) y estado de empleado/desempleado (para precios)]
+			-datos bancarios [numero de cuenta bancaria y tarjeta]
+			-forma de contacto [correo electronico y numeros de telefonos [fijo y móvil]]
+		].
+
+Permisos:
+	-Administrativo:
+		-Crear nuevos clientes.
+		-Actualizar datos de clientes.
+		-Actualizar precios.
+		-Actualizar clases (guardar en archivos xml o json los horarios, el resto en base de datos).
+		-Crear profesores que imparten clases (guardar datos minimos, nombre, dni y datos para pagar... ).
+		
+	-Cliente:
+		-Realizar reservas de clases
+		-Editar datos personales (solo algunos, para otros solicitar a empleado una actualización)
+		
+

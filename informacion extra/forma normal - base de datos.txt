@@ -1,0 +1,8 @@
+Administrativo(DNI, Pasword, Nombre, Apellidos)
+Cliente(DNI, Pasword, nombre, apellidos, edad, desempleado, cuota)
+Clase(ID, nombre, descripcion, dni_profesor)
+Profesor(DNI, nombre, salario)
+
+Gestiona(dni_administrativo, id_clase)
+Altas_Bajas(dni_administrativo, dni_cliente)
+Asiste(dni_cliente, id_clase)
