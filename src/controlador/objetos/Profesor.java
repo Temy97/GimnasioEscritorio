@@ -1,4 +1,4 @@
-package modelo;
+package controlador.objetos;
 
 public class Profesor {
 

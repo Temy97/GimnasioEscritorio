@@ -10,6 +10,10 @@ USE gimnasio_db;
 
 GO
 
+DROP TABLE IF EXISTS gestiona, alta_baja, asiste, clase, profesor, administrativo, cliente;
+
+GO
+
 CREATE TABLE profesor (
 	dni char(9) CONSTRAINT PK_PROFESOR PRIMARY KEY,
 	nombre varchar(45) NOT NULL,
@@ -44,28 +48,28 @@ CREATE TABLE cliente(
 );
 
 CREATE TABLE gestiona(
-	dni_administrativo char(9) CONSTRAINT FK_DNI_ADMINISTRATIVO_GESTION FOREIGN KEY (dni_administrativo) REFERENCES administrativo(dni)
+	dni_administrativo char(9) CONSTRAINT FK_DNI_ADMINISTRATIVO_GESTION REFERENCES administrativo(dni)
 		ON DELETE NO ACTION
 		ON UPDATE CASCADE,
-	id_clase char(3) CONSTRAINT FK_ID_CLASE_GESTIONA FOREIGN KEY (id_clase) REFERENCES clase(id)
+	id_clase char(3) CONSTRAINT FK_ID_CLASE_GESTIONA REFERENCES clase(id)
 		ON DELETE NO ACTION
 		ON UPDATE CASCADE
 );
 
 CREATE TABLE alta_baja(
-	dni_administrativo char(9) CONSTRAINT FK_DNI_ADMINISTRATIVO_ALTABAJA FOREIGN KEY (dni_administrativo) REFERENCES administrativo(dni)
+	dni_administrativo char(9) CONSTRAINT FK_DNI_ADMINISTRATIVO_ALTABAJA  REFERENCES administrativo(dni)
 		ON DELETE NO ACTION
 		ON UPDATE CASCADE,
-	dni_cliente char(9) CONSTRAINT FK_ID_CLIENTE_ALTABAJA FOREIGN KEY (dni_cliente) REFERENCES cliente(dni)
+	dni_cliente char(9) CONSTRAINT FK_ID_CLIENTE_ALTABAJA  REFERENCES cliente(dni)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 );
 
 CREATE TABLE asiste(
-	dni_cliente char(9) CONSTRAINT FK_DNI_CLIENTE_ASISTE FOREIGN KEY (dni_cliente) REFERENCES cliente(dni)
+	dni_cliente char(9) CONSTRAINT FK_DNI_CLIENTE_ASISTE  REFERENCES cliente(dni)
 		ON DELETE NO ACTION
 		ON UPDATE CASCADE,
-	id_clase char(3) CONSTRAINT FK_ID_CLASE_ASISTE FOREIGN KEY (id_clase) REFERENCES clase(id)
+	id_clase char(3) CONSTRAINT FK_ID_CLASE_ASISTE  REFERENCES clase(id)
 		ON DELETE NO ACTION
 		ON UPDATE CASCADE
 );
