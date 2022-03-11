@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -12,7 +13,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import controlador.objetos.Administrativo;
+import controlador.objetos.Cliente;
+import modelo.Singletone;
 import modelo.objetosDAO.AdministrativoDAO;
+import modelo.objetosDAO.ClienteDAO;
 
 @SuppressWarnings("serial")
 public class Ventana extends JFrame {
@@ -37,8 +41,9 @@ public class Ventana extends JFrame {
 	//METODOS:
 	public static void main(String[] args) {
 		//new Ventana();
-		System.out.println(AdministrativoDAO.insert_admin(new Administrativo("71709391Z", "dam2t")));
+		System.out.println(ClienteDAO.buscar_dni_pasword("71709391Z", "pwd").toString());
 		
+		Singletone.cierre();
 	}
 	
 	

@@ -30,7 +30,10 @@ public class Administrativo {
 	
 	
 	//METODOS:
-	//
+	@Override
+	public String toString() {
+		return "Nombre: " + getNombre() + ", apellidos: " + getApellidos() + ", DNI: " + getDni() + ", pasword: " + getPasword();
+	}
 	
 	
 	
