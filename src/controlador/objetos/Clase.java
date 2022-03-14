@@ -15,16 +15,24 @@ public class Clase {
 		
 		
 		public Clase(String id, String nombre, String descripcion, String dni_profesor) {
-			this.setId(id);
-			this.setNombre(nombre);
-			this.setDescripcion(descripcion);
-			this.setDni_profesor(dni_profesor);
+			if(id.length() != 3) {
+				throw new IllegalArgumentException("Se ha introducido un id invalido, revisar si es de longitud 3.");
+			}else {
+				this.setId(id);
+				this.setNombre(nombre);
+				this.setDescripcion(descripcion);
+				this.setDni_profesor(dni_profesor);
+			}
 		}
 		
 		
 		public Clase(String id, String nombre) {
-			this.setId(id);
-			this.setNombre(nombre);
+			if(id.length() != 3) {
+				throw new IllegalArgumentException("Se ha introducido un id invalido, revisar si es de longitud 3.");
+			}else {
+				this.setId(id);
+				this.setNombre(nombre);
+			}
 		}
 		
 		
