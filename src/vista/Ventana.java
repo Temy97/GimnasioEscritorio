@@ -41,9 +41,6 @@ public class Ventana extends JFrame {
 	//METODOS:
 	public static void main(String[] args) {
 		//new Ventana();
-		System.out.println(ClienteDAO.buscar_dni_pasword("71709391Z", "pwd").toString());
-		
-		Singletone.cierre();
 	}
 	
 	
