@@ -1,5 +1,7 @@
 package vista;
 
+import java.awt.Image;
+import java.awt.Graphics;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -7,10 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 
 import controlador.objetos.Administrativo;
 import controlador.objetos.Cliente;
@@ -21,6 +26,20 @@ import modelo.objetosDAO.ClienteDAO;
 @SuppressWarnings("serial")
 public class Ventana extends JFrame {
 	
+	//ATRIBUTOS:
+	private static final JPanel PANEL_IMAGEN_FONDO = new JPanel() {
+		@Override
+		public void paint(Graphics g) {
+			Image imagen = new ImageIcon("img\\fondo_pantalla.jpg").getImage();
+			g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
+			setOpaque(false);
+			super.paint(g);
+		}
+	};
+	private Ventana yo = this;
+	private JPanel panel = PANEL_IMAGEN_FONDO;
+	private CambiarDatos panelCambiarDatos = new CambiarDatos(this);
+	
 	//CONSTRUCTOR:
 	public Ventana() {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -28,9 +47,7 @@ public class Ventana extends JFrame {
 		this.setLocationRelativeTo(null);
 		
 		this.setJMenuBar(barraCliente());
-		//this.add(new JPanel() {
-			
-		//}, BorderLayout.CENTER);
+		this.setContentPane(panel);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
@@ -40,7 +57,7 @@ public class Ventana extends JFrame {
 	
 	//METODOS:
 	public static void main(String[] args) {
-		//new Ventana();
+		new Ventana();
 	}
 	
 	
@@ -52,6 +69,13 @@ public class Ventana extends JFrame {
 		
 		JMenuItem inicio = new JMenuItem("Inicio");
 		inicio.setToolTipText("Volver a la forma de inicio con la imagen de fondo");
+		inicio.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				llamarInicio();
+			}
+		});
 		
 		JMenuItem ver_clases_apuntadas = new JMenuItem("Ver clases Apuntadas");
 		ver_clases_apuntadas.setToolTipText("Ver el historial de las clases a las que se ha asistido");
@@ -62,12 +86,19 @@ public class Ventana extends JFrame {
 		
 		JMenuItem cambiar_datos = new JMenuItem("Cambiar datos");
 		cambiar_datos.setToolTipText("Acceder al menu para cambiar datos personales");
+		cambiar_datos.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				limpiarContenido(panel);
+				panel = panelCambiarDatos;
+				yo.setContentPane(panel);
+			}
+		});
 		
 		JMenuItem salir = new JMenuItem("Salir");
 		salir.setToolTipText("Cerrar la aplicacion");
 		
 		salir.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				modelo.Singletone.cierre();
@@ -88,5 +119,17 @@ public class Ventana extends JFrame {
 		menu_bar.add(menu);
 		
 		return menu_bar;
+	}
+	
+	
+	public void llamarInicio() {
+		this.setContentPane(PANEL_IMAGEN_FONDO);
+	}
+	
+	
+	public static void limpiarContenido(JComponent contenido) {
+		contenido.removeAll();
+		contenido.revalidate();
+		contenido.repaint();
 	}
 }
