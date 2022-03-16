@@ -40,6 +40,8 @@ public class Ventana extends JFrame {
 	private JPanel panel = PANEL_IMAGEN_FONDO;
 	private CambiarDatos panelCambiarDatos = new CambiarDatos(this);
 	
+	public static final String DNI_EJEMPLO = "12345678D";
+	
 	//CONSTRUCTOR:
 	public Ventana() {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

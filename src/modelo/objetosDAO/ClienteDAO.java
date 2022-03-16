@@ -56,10 +56,11 @@ public class ClienteDAO {
 		boolean borrado = false;
 		
 		if(dni.length() == 9) {
-			String instruccion_delete = "DELETE FROM cliente WHERE dni LIKE '" + dni + "';";
+			String instruccion_delete = "DELETE FROM cliente WHERE dni LIKE ?;";
 			
 			try {
 				PreparedStatement st = Singletone.getInstance().prepareStatement(instruccion_delete);
+				st.setString(1, dni);
 				
 				if(st.executeUpdate() == 1) {
 					borrado = true;
@@ -83,12 +84,44 @@ public class ClienteDAO {
 	public static Cliente buscar_dni_pasword(String dni, String pasword) {
 		Cliente cliente = null;
 		
-		String consulta = "SELECT * FROM cliente WHERE dni LIKE '" + dni + "' AND pasword LIKE '" + pasword + "';";
+		String consulta = "SELECT * FROM cliente WHERE dni LIKE ? AND pasword LIKE ?;";
+		
 		
 		try {
-			ResultSet rs = Singletone.getInstance().createStatement().executeQuery(consulta);
+			PreparedStatement st = Singletone.getInstance().prepareStatement(consulta);
+			st.setString(1, dni);
+			st.setString(2, pasword);
+			
+			ResultSet rs = st.executeQuery();
 			rs.next();
 			cliente = new Cliente(dni, pasword, rs.getString(3), rs.getString(4), rs.getInt(5), ((rs.getString(6) == "S")? true:false), rs.getDouble(7));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return cliente;
+	}
+	
+	
+	/**
+	 * Busca al clilente que coincida con el dni indicado
+	 * y devuleve un objeto del mismo tipo con sus datos.
+	 * @param dni
+	 * @return
+	 */
+	public static Cliente buscar_dni(String dni) {
+		Cliente cliente = null;
+		
+		String consulta = "SELECT * FROM cliente WHERE dni LIKE ?;";
+		
+		try {
+			PreparedStatement st = Singletone.getInstance().prepareStatement(consulta);
+			st.setString(1, dni);
+			
+			ResultSet rs = st.executeQuery();
+			rs.next();
+			cliente = new Cliente(dni, rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), ((rs.getString(6) == "S")? true:false), rs.getDouble(7));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -113,10 +146,18 @@ public class ClienteDAO {
 	public static boolean editar_datos_cliente(String dni, String dni_nuevo, String pasword_nuevo, String nombre_nuevo, String apellidos_nuevo, int edad_nueva, String estado_nuevo, double cuota_nueva) {
 		boolean modificado = false;
 		
-		String modificacion = "UPDATE cliente SET dni = '" + dni_nuevo + "', pasword = '" + pasword_nuevo + "', nombre = '" + nombre_nuevo + "', apellidos = '" + apellidos_nuevo + "', edad = " + edad_nueva + ", estado_empleo = '" + estado_nuevo + "', cuota = " + cuota_nueva + "' WHERE dni LIKE '" + dni + "';";
+		String modificacion = "UPDATE cliente SET dni = ?, pasword = ?, nombre = ?, apellidos = ?, edad = ?, estado_empleo = ?, cuota = ? WHERE dni LIKE ?;";
 		
 		try {
 			PreparedStatement st = Singletone.getInstance().prepareStatement(modificacion);
+			st.setString(1, dni);
+			st.setString(2, dni_nuevo);
+			st.setString(3, pasword_nuevo);
+			st.setString(4, nombre_nuevo);
+			st.setString(5, apellidos_nuevo);
+			st.setInt(6, edad_nueva);
+			st.setString(7, estado_nuevo);
+			st.setDouble(8, cuota_nueva);
 			
 			if(st.executeUpdate() == 1) {
 				modificado = true;
