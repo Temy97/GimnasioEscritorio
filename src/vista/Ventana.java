@@ -91,9 +91,7 @@ public class Ventana extends JFrame {
 		cambiar_datos.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				limpiarContenido(panel);
-				panel = panelCambiarDatos;
-				yo.setContentPane(panel);
+				llamarCambiarDatos();
 			}
 		});
 		
@@ -125,7 +123,16 @@ public class Ventana extends JFrame {
 	
 	
 	public void llamarInicio() {
-		this.setContentPane(PANEL_IMAGEN_FONDO);
+		limpiarContenido(panel);
+		panel = PANEL_IMAGEN_FONDO;
+		yo.setContentPane(panel);
+	}
+	
+	
+	public void llamarCambiarDatos() {
+		limpiarContenido(panel);
+		panel = panelCambiarDatos;
+		yo.setContentPane(panel);
 	}
 	
 	

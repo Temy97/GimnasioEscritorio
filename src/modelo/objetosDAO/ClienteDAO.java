@@ -143,21 +143,21 @@ public class ClienteDAO {
 	 * @param cuota_nueva
 	 * @return
 	 */
-	public static boolean editar_datos_cliente(String dni, String dni_nuevo, String pasword_nuevo, String nombre_nuevo, String apellidos_nuevo, int edad_nueva, String estado_nuevo, double cuota_nueva) {
+	public static boolean editar_datos_cliente(String dni,Cliente cliente) {
 		boolean modificado = false;
 		
 		String modificacion = "UPDATE cliente SET dni = ?, pasword = ?, nombre = ?, apellidos = ?, edad = ?, estado_empleo = ?, cuota = ? WHERE dni LIKE ?;";
 		
 		try {
 			PreparedStatement st = Singletone.getInstance().prepareStatement(modificacion);
-			st.setString(1, dni);
-			st.setString(2, dni_nuevo);
-			st.setString(3, pasword_nuevo);
-			st.setString(4, nombre_nuevo);
-			st.setString(5, apellidos_nuevo);
-			st.setInt(6, edad_nueva);
-			st.setString(7, estado_nuevo);
-			st.setDouble(8, cuota_nueva);
+			st.setString(8, dni);
+			st.setString(1, cliente.getDni());
+			st.setString(2, cliente.getPasword());
+			st.setString(3, cliente.getNombre());
+			st.setString(4, cliente.getApellidos());
+			st.setInt(5, cliente.getEdad());
+			st.setString(6, cliente.isEstadoChar());
+			st.setDouble(7, cliente.getCuota());
 			
 			if(st.executeUpdate() == 1) {
 				modificado = true;

@@ -75,6 +75,23 @@ public class Cliente {
 		}
 		
 		
+		/**
+		 * Se introduce un char y lo convierte a boolean. <br>
+		 * 'S' -> TRUE ---- 'N' -> FALSE, otro = ERROR (IllegalArgumentException).
+		 * @param str
+		 * @return
+		 */
+		public static boolean generarEstado(String str) {
+			if(str.equals("S")) {
+				return true;
+			}else if(str.equals("N")){
+				return false;
+			}else {
+				throw new IllegalArgumentException();
+			}
+		}
+		
+		
 		
 		//GET-SET:
 		public String getDni() {

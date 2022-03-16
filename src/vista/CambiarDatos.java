@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -101,6 +102,12 @@ public class CambiarDatos extends JPanel {
 		});
 		
 		JButton guardar = new JButton("Guardar datos");
+		guardar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				guardarDatos(nombre_area.getText(), apellidos_area.getText(), dni_area.getText(), String.valueOf(pasword_area.getPassword()), edad_area.getText(), empleado_area.getText(), cuota_area.getText());
+			}
+		});
 		JButton refresh = new JButton("Refrescar");
 		JButton inicio = new JButton("Volver a Inicio");
 		
@@ -163,5 +170,14 @@ public class CambiarDatos extends JPanel {
 	
 	
 	//METODOS:
-	
+	private void guardarDatos(String...strings) {
+		//OJO con el orden de insercion de los datos y como estan en los constructores, metodos y columnas de la dbo.
+		Cliente cliente = new Cliente(strings[2], strings[3], strings[0], strings[1], Integer.parseInt(strings[4]), Cliente.generarEstado(strings[5]), Double.parseDouble(strings[6]));
+		
+		if(ClienteDAO.editar_datos_cliente(Ventana.DNI_EJEMPLO, cliente)) {
+			JOptionPane.showMessageDialog(null, "Se han actualizado los datos correctamente", "", JOptionPane.PLAIN_MESSAGE, null);
+		}else {
+			JOptionPane.showMessageDialog(null, "No se han podido actualizar los datos", "", JOptionPane.WARNING_MESSAGE, null);
+		}
+	}
 }
