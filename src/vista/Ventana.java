@@ -122,6 +122,10 @@ public class Ventana extends JFrame {
 	}
 	
 	
+	/**
+	 * Provoca que la ventana muestre el JPanel
+	 * correspondiente al atributo 'inicio'.
+	 */
 	public void llamarInicio() {
 		limpiarContenido(panel);
 		panel = PANEL_IMAGEN_FONDO;
@@ -129,13 +133,24 @@ public class Ventana extends JFrame {
 	}
 	
 	
+	/**
+	 * Provoca que la ventana muestre el JPanel
+	 * correspondiente al atributo 'panelCambiarDatos'.
+	 */
 	public void llamarCambiarDatos() {
 		limpiarContenido(panel);
+		limpiarContenido(panelCambiarDatos);
+		panelCambiarDatos = new CambiarDatos(this);
 		panel = panelCambiarDatos;
 		yo.setContentPane(panel);
 	}
 	
 	
+	/**
+	 * Limpia y revalida el componente que
+	 * recibe por parametro.
+	 * @param contenido
+	 */
 	public static void limpiarContenido(JComponent contenido) {
 		contenido.removeAll();
 		contenido.revalidate();

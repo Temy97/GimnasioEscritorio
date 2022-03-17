@@ -20,14 +20,16 @@ public class CambiarDatos extends JPanel {
 	
 	//ATRIBUTOS:
 	private boolean asteriscos = false;
+	private Cliente cliente = ClienteDAO.buscar_dni(Ventana.DNI_EJEMPLO);
+	//private Ventana ventana;
 	
 	
 	//CONSTRUCTOR:
 	public CambiarDatos(JFrame ventana) {
 		this.setLayout(null);
 		
-		Cliente cliente = ClienteDAO.buscar_dni(Ventana.DNI_EJEMPLO);
-		
+		this.cliente = ClienteDAO.buscar_dni(Ventana.DNI_EJEMPLO);
+		//this.ventana = (Ventana) ventana;
 		
 		//JLbels:
 		JLabel nombre = new JLabel("Nombre:");
@@ -109,7 +111,26 @@ public class CambiarDatos extends JPanel {
 			}
 		});
 		JButton refresh = new JButton("Refrescar");
+		refresh.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				actualizarCliente();
+				nombre_area.setText(cliente.getNombre());
+				apellidos_area.setText(cliente.getApellidos());
+				dni_area.setText(cliente.getDni());
+				pasword_area.setText(cliente.getPasword());
+				edad_area.setText(Integer.toString(cliente.getEdad()));
+				empleado_area.setText(cliente.isEstadoChar());
+				cuota_area.setText(Double.toString(cliente.getCuota()));
+			}
+		});
 		JButton inicio = new JButton("Volver a Inicio");
+		inicio.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				((Ventana) ventana).llamarInicio();
+			}
+		});
 		
 		//horizontal - vertical - ancho - alto
 		nombre.setBounds(100, 60, 80, 20);
@@ -179,5 +200,10 @@ public class CambiarDatos extends JPanel {
 		}else {
 			JOptionPane.showMessageDialog(null, "No se han podido actualizar los datos", "", JOptionPane.WARNING_MESSAGE, null);
 		}
+	}
+	
+	
+	public void actualizarCliente() {
+		this.cliente = ClienteDAO.buscar_dni(Ventana.DNI_EJEMPLO);
 	}
 }
