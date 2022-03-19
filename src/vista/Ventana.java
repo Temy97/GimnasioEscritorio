@@ -38,6 +38,7 @@ public class Ventana extends JFrame {
 	};
 	private Ventana yo = this;
 	private JPanel panel = PANEL_IMAGEN_FONDO;
+	private ApuntarClase panelApuntarse = new ApuntarClase(this);
 	private CambiarDatos panelCambiarDatos = new CambiarDatos(this);
 	
 	public static final String DNI_EJEMPLO = "12345678D";
@@ -74,15 +75,22 @@ public class Ventana extends JFrame {
 		inicio.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
 				llamarInicio();
 			}
 		});
 		
 		JMenuItem ver_clases_apuntadas = new JMenuItem("Ver clases Apuntadas");
 		ver_clases_apuntadas.setToolTipText("Ver el historial de las clases a las que se ha asistido");
+		
 		JMenuItem apuntarse = new JMenuItem("Apuntarse");
 		apuntarse.setToolTipText("Apuntarse a proximas clases");
+		apuntarse.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				llamarApuntarse();
+			}
+		});
+		
 		JMenuItem ver_clases = new JMenuItem("Ver clases");
 		ver_clases.setToolTipText("Ver los horarios semanales");
 		
@@ -129,6 +137,19 @@ public class Ventana extends JFrame {
 	public void llamarInicio() {
 		limpiarContenido(panel);
 		panel = PANEL_IMAGEN_FONDO;
+		yo.setContentPane(panel);
+	}
+	
+	
+	/**
+	 * Provoca que la ventana muestre el JPanel
+	 * correspondiente al atributo 'apuntarse'.
+	 */
+	public void llamarApuntarse() {
+		limpiarContenido(panel);
+		limpiarContenido(panelApuntarse);
+		panelApuntarse = new ApuntarClase(this);
+		panel = panelApuntarse;
 		yo.setContentPane(panel);
 	}
 	
