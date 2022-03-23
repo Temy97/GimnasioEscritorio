@@ -18,7 +18,7 @@ public class GenerarArchivoSecuencial {
 	//ATRIBUTOS:
 	private static String nombre; //varchar(45)
 	private static String[] dias = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"};
-	private static String[] horas = {"8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "", "16:00", "17:00", "18:00", "19:00", "20:00"};
+	private static String[] horas = {"08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "16:00", "17:00", "18:00", "19:00", "20:00"};
 	
 	private static File archivo = new File("datos\\horarios_secuenciales.dat");
 	
@@ -58,6 +58,11 @@ public class GenerarArchivoSecuencial {
 			escribir(raf, dias[5], horas[7], "yoga");
 			escribir(raf, dias[5], horas[8], "boxeo");
 			
+			int posLec = 0;
+			raf.seek(posLec);
+			while(raf.getFilePointer() != archivo.length()) {
+				System.out.print(raf.readChar());
+			}
 			
 		}catch(IOException e) {
 			e.getLocalizedMessage();
@@ -88,7 +93,7 @@ public class GenerarArchivoSecuencial {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		//para leer el fichero -> numero de chars * 2
 	}
 
 }
