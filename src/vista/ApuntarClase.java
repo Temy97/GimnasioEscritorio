@@ -99,8 +99,10 @@ public class ApuntarClase extends JPanel {
 				int row = tabla.rowAtPoint(evt.getPoint());
 		        int col = tabla.columnAtPoint(evt.getPoint());
 		        
-		        textField.setText(tabla.getModel().getValueAt(row, col).toString());
-		        c_horas.setSelectedIndex(row);
+		        if(row != 6 && col != 0) {
+		        	textField.setText(tabla.getModel().getValueAt(row, col).toString());
+		        	c_horas.setSelectedIndex(row);
+		        }
 		    }
 		});
 		
