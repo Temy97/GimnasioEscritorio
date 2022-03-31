@@ -3,6 +3,8 @@ package vista;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -10,11 +12,14 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
+
+import modelo.SecuencialClasesApuntadas;
 
 @SuppressWarnings("serial")
 public class ApuntarClase extends JPanel {
@@ -43,9 +48,29 @@ public class ApuntarClase extends JPanel {
 		
 		JButton confirmar = new JButton("Confirmar");
 		confirmar.setBounds(700, 320, 120, 40);
+		confirmar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(n_text.getText().length() == 0) {
+					JOptionPane.showMessageDialog(null, "Debe seleccionar una clase");
+				}else {
+					if(c_horas.getSelectedItem().toString().length() == 0) {
+						JOptionPane.showMessageDialog(null, "Debe seleccionar una hora vÃ¡lida");
+					}else {
+						SecuencialClasesApuntadas.guardarClase(n_text.getText(), Ventana.DNI_EJEMPLO, c_horas.getSelectedItem().toString());
+					}
+				}
+			}
+		});
 		
 		JButton imprimir = new JButton("Imprimir horario");
 		imprimir.setBounds(680, 400, 160, 40);
+		imprimir.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//TODO
+			}
+		});
 		
 		JScrollPane tabla = new JScrollPane(generarTabla(n_text, c_horas));
 		tabla.setBounds(50, 50, 900, 215);
@@ -63,7 +88,7 @@ public class ApuntarClase extends JPanel {
 	//METODOS:
 	/**
 	 * Genera un JTable con los dias de la semana, las
-	 * horas y las actividades, esto último segun el archivo
+	 * horas y las actividades, esto ï¿½ltimo segun el archivo
 	 * 'datos\\horarios_secuenciales.dat' encontrado.
 	 * En caso de no encontrarlo solo aparecen los dias
 	 * y las horas.
