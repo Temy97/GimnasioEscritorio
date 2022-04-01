@@ -73,7 +73,9 @@ public class GenerarXML {
 						valorAtributo = "";
 					}
 					
-					crearElemento("actividad", valorEtiqueta.trim(), "hora", valorAtributo, etiquetaPadre, documento);
+					if(valorAtributo.length() != 0) {
+						crearElemento("actividad", valorEtiqueta.trim(), "hora", valorAtributo, etiquetaPadre, documento);
+					}
 				}
 			}
 			
