@@ -41,8 +41,8 @@ public class CambiarDatos extends JPanel {
 		JLabel dni = new JLabel("DNI:");
 		dni.setToolTipText("DNI del cliente.");
 		
-		JLabel pasword = new JLabel("Contraseña:");
-		pasword.setToolTipText("Contraseña del cliente. Por defecto esta visible.");
+		JLabel pasword = new JLabel("ContraseÃ±a:");
+		pasword.setToolTipText("ContraseÃ±a del cliente. Por defecto esta visible.");
 		
 		JLabel edad = new JLabel("Edad:");
 		edad.setToolTipText("Edad del cliente.");
@@ -69,7 +69,7 @@ public class CambiarDatos extends JPanel {
 		dni_area.setText(cliente.getDni());
 		
 		JPasswordField pasword_area = new JPasswordField();
-		pasword_area.setToolTipText("Contraseña del cliente. Por defecto esta visible.");
+		pasword_area.setToolTipText("ContraseÃ±a del cliente. Por defecto esta visible.");
 		pasword_area.setText(cliente.getPasword());
 		
 		JTextField edad_area = new JTextField();
@@ -88,7 +88,7 @@ public class CambiarDatos extends JPanel {
 		cuota_area.setText(Double.toString(cliente.getCuota()));
 		
 		
-		JCheckBox pwd_asteriscos_check = new JCheckBox("Contraseña visible.");
+		JCheckBox pwd_asteriscos_check = new JCheckBox("ContraseÃ±a visible.");
 		pwd_asteriscos_check.setSelected(false);
 		pwd_asteriscos_check.addActionListener(new ActionListener() {
 			@Override

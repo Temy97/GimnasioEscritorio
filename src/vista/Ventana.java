@@ -16,6 +16,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 import controlador.objetos.Administrativo;
 import controlador.objetos.Cliente;
@@ -45,6 +46,14 @@ public class Ventana extends JFrame {
 	
 	//CONSTRUCTOR:
 	public Ventana() {
+		
+		try {
+			JFrame.setDefaultLookAndFeelDecorated(true);
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setSize((int) (screenSize.getWidth() / 6) * 4, (int) (screenSize.getHeight() / 6) * 4);
 		this.setLocationRelativeTo(null);

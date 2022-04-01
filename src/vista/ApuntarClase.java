@@ -19,6 +19,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import modelo.GenerarXML;
 import modelo.SecuencialClasesApuntadas;
 
 @SuppressWarnings("serial")
@@ -45,6 +46,10 @@ public class ApuntarClase extends JPanel {
 		JComboBox<String> c_horas = new JComboBox<String>(HORAS);
 		c_horas.setBounds(250, 350, 100, 30);
 		
+		JTable tabla = generarTabla(n_text, c_horas);
+		JScrollPane tablaScroll = new JScrollPane(tabla);
+		tablaScroll.setBounds(50, 50, 900, 215);
+		
 		
 		JButton confirmar = new JButton("Confirmar");
 		confirmar.setBounds(700, 320, 120, 40);
@@ -68,14 +73,11 @@ public class ApuntarClase extends JPanel {
 		imprimir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO
+				GenerarXML.imprimirHorario(tabla);
 			}
 		});
 		
-		JScrollPane tabla = new JScrollPane(generarTabla(n_text, c_horas));
-		tabla.setBounds(50, 50, 900, 215);
-		
-		this.add(tabla);
+		this.add(tablaScroll);
 		this.add(n_clase);
 		this.add(n_text);
 		this.add(s_hora);
