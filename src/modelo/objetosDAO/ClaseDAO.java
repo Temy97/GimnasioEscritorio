@@ -95,6 +95,32 @@ public class ClaseDAO {
 	
 	
 	/**
+	 * Busca en la tabla clase de la base de datos la entrada correspondiente al
+	 * nombre introducido como parametro, despues devuelve un objeto de tipo clase
+	 * con los datos de dicha entrada, en caso de no encontrar una coincidencia
+	 * se devuelve un objeto inicializado a {@code NULL}.
+	 * @param nombre
+	 * @return
+	 */
+	public static Clase buscar_clase_nombre(String nombre) {
+		Clase clase = null;
+		
+		String consulta = "SELECT * FROM clase WHERE nombre LIKE '" + nombre + "';";
+		
+		try {
+			ResultSet rs = Singletone.getInstance().createStatement().executeQuery(consulta);
+			rs.next();
+			clase = new Clase(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return clase;
+	}
+	
+	
+	/**
 	 * Se borra de la base de datos aquel profesor
 	 * cuyo dni coincida con el introducido como
 	 * parametro.

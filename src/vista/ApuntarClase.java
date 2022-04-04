@@ -90,7 +90,7 @@ public class ApuntarClase extends JPanel {
 	//METODOS:
 	/**
 	 * Genera un JTable con los dias de la semana, las
-	 * horas y las actividades, esto �ltimo segun el archivo
+	 * horas y las actividades, esto último segun el archivo
 	 * 'datos\\horarios_secuenciales.dat' encontrado.
 	 * En caso de no encontrarlo solo aparecen los dias
 	 * y las horas.

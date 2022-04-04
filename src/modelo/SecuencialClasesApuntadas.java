@@ -1,10 +1,12 @@
 package modelo;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
@@ -75,5 +77,58 @@ public class SecuencialClasesApuntadas {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	
+	/**
+	 * Se busca el archivo con las clases a las que
+	 * se ha apuntado el usuario, es necesario el dni
+	 * del usuario para encontrar el archivo correspondiente,
+	 * y se devuelve un array bidimensional con los datos obtenidos.
+	 * @param dni
+	 * @return
+	 * @throws IOException 
+	 */
+	public static String[][] leerSecuencial(String dni) throws IOException{
+		ArrayList<String> filaList = new ArrayList<String>();
+		String[][] datos = null;
+		File fichero = new File("datos\\ClasesApuntadas" + dni + ".dat");
+		RandomAccessFile raf = new RandomAccessFile(fichero, "rw");
+		
+		while(raf.getFilePointer() != fichero.length()) {
+			String fecha = "";
+			String hora = "";
+			String actividad = "";
+			
+			for (int i = 0; i < 10; i++) {
+				fecha = fecha + raf.readChar();
+			}
+			for (int i = 0; i < 5; i++) {
+				hora = hora + raf.readChar();
+			}
+			for (int i = 0; i < 10; i++) {
+				actividad = actividad + raf.readChar();
+			}
+			
+			filaList.add(fecha.trim());
+			filaList.add(hora.trim());
+			filaList.add(actividad.trim());
+		}
+		
+		int filas = (filaList.size() / 3);
+		int columnas = 3;
+		int cont = 0;
+		datos = new String[columnas][filas];
+		//TODO
+		for (int i = 0; i < filas; i++) {
+			for (int j = 0; j < columnas; j++) {
+				datos[j][i] = filaList.get(cont);
+				cont++;
+			}
+		}
+		
+		raf.close();
+		
+		return datos;
 	}
 }

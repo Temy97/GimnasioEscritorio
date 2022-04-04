@@ -39,6 +39,7 @@ public class Ventana extends JFrame {
 	};
 	private Ventana yo = this;
 	private JPanel panel = PANEL_IMAGEN_FONDO;
+	private VerClasesApuntadas panelVerClasesApuntadas = new VerClasesApuntadas(this);
 	private ApuntarClase panelApuntarse = new ApuntarClase(this);
 	private CambiarDatos panelCambiarDatos = new CambiarDatos(this);
 	
@@ -49,7 +50,12 @@ public class Ventana extends JFrame {
 		
 		try {
 			JFrame.setDefaultLookAndFeelDecorated(true);
-			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			//UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			//UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.synth.SynthStyleFactory");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -90,6 +96,12 @@ public class Ventana extends JFrame {
 		
 		JMenuItem ver_clases_apuntadas = new JMenuItem("Ver clases Apuntadas");
 		ver_clases_apuntadas.setToolTipText("Ver el historial de las clases a las que se ha asistido");
+		ver_clases_apuntadas.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				llamarVerClasesApuntadas();
+			}
+		});
 		
 		JMenuItem apuntarse = new JMenuItem("Apuntarse");
 		apuntarse.setToolTipText("Apuntarse a proximas clases");
@@ -146,6 +158,19 @@ public class Ventana extends JFrame {
 	public void llamarInicio() {
 		limpiarContenido(panel);
 		panel = PANEL_IMAGEN_FONDO;
+		yo.setContentPane(panel);
+	}
+	
+	
+	/**
+	 * Provoca que la ventana muestre el JPanel
+	 * correspondiente al atributo 'ver_clases_apuntadas'.
+	 */
+	public void llamarVerClasesApuntadas() {
+		limpiarContenido(panel);
+		limpiarContenido(panelVerClasesApuntadas);
+		panelVerClasesApuntadas = new VerClasesApuntadas(this);
+		panel = panelVerClasesApuntadas;
 		yo.setContentPane(panel);
 	}
 	
