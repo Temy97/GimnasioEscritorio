@@ -34,29 +34,29 @@ public class GenerarArchivoSecuencial {
 			}
 			
 			RandomAccessFile raf = new RandomAccessFile(archivo, "rw");
-			escribir(raf, dias[0], horas[0], "yoga");
-			escribir(raf, dias[0], horas[3], "yoga");
-			escribir(raf, dias[0], horas[8], "yoga");
+			escribir(raf, dias[0], horas[0], "Yoga");
+			escribir(raf, dias[0], horas[3], "Yoga");
+			escribir(raf, dias[0], horas[8], "Yoga");
 			
-			escribir(raf, dias[1], horas[0], "gravity");
-			escribir(raf, dias[1], horas[6], "gravity");
+			escribir(raf, dias[1], horas[0], "Gravity");
+			escribir(raf, dias[1], horas[6], "Gravity");
 			
-			escribir(raf, dias[2], horas[2], "gravity");
-			escribir(raf, dias[2], horas[7], "gravity");
+			escribir(raf, dias[2], horas[2], "Gravity");
+			escribir(raf, dias[2], horas[7], "Gravity");
 			
-			escribir(raf, dias[3], horas[1], "yoga");
-			escribir(raf, dias[3], horas[9], "yoga");
+			escribir(raf, dias[3], horas[1], "Yoga");
+			escribir(raf, dias[3], horas[9], "Yoga");
 			
-			escribir(raf, dias[4], horas[0], "boxeo");
-			escribir(raf, dias[4], horas[3], "boxeo");
-			escribir(raf, dias[4], horas[8], "boxeo");
+			escribir(raf, dias[4], horas[0], "Boxeo");
+			escribir(raf, dias[4], horas[3], "Boxeo");
+			escribir(raf, dias[4], horas[8], "Boxeo");
 			
-			escribir(raf, dias[5], horas[0], "gravity");
-			escribir(raf, dias[5], horas[1], "yoga");
-			escribir(raf, dias[5], horas[2], "boxeo");
-			escribir(raf, dias[5], horas[6], "gravity");
-			escribir(raf, dias[5], horas[7], "yoga");
-			escribir(raf, dias[5], horas[8], "boxeo");
+			escribir(raf, dias[5], horas[0], "Gravity");
+			escribir(raf, dias[5], horas[1], "Yoga");
+			escribir(raf, dias[5], horas[2], "Boxeo");
+			escribir(raf, dias[5], horas[6], "Gravity");
+			escribir(raf, dias[5], horas[7], "Yoga");
+			escribir(raf, dias[5], horas[8], "Boxeo");
 			
 			int posLec = 0;
 			raf.seek(posLec);

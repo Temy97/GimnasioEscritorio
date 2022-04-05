@@ -90,7 +90,9 @@ public class SecuencialClasesApuntadas {
 	 * @throws IOException 
 	 */
 	public static String[][] leerSecuencial(String dni) throws IOException{
-		ArrayList<String> filaList = new ArrayList<String>();
+		ArrayList<String> fechaList = new ArrayList<String>();
+		ArrayList<String> horaList = new ArrayList<String>();
+		ArrayList<String> actividadList = new ArrayList<String>();
 		String[][] datos = null;
 		File fichero = new File("datos\\ClasesApuntadas" + dni + ".dat");
 		RandomAccessFile raf = new RandomAccessFile(fichero, "rw");
@@ -110,21 +112,21 @@ public class SecuencialClasesApuntadas {
 				actividad = actividad + raf.readChar();
 			}
 			
-			filaList.add(fecha.trim());
-			filaList.add(hora.trim());
-			filaList.add(actividad.trim());
+			fechaList.add(fecha.trim());
+			horaList.add(hora.trim());
+			actividadList.add(actividad.trim());
 		}
 		
-		int filas = (filaList.size() / 3);
+		int filas = fechaList.size();
 		int columnas = 3;
 		int cont = 0;
-		datos = new String[columnas][filas];
-		//TODO
+		datos = new String[filas][columnas];
+		
 		for (int i = 0; i < filas; i++) {
-			for (int j = 0; j < columnas; j++) {
-				datos[j][i] = filaList.get(cont);
-				cont++;
-			}
+			datos[i][0] = fechaList.get(cont);
+			datos[i][1] = horaList.get(cont);
+			datos[i][2] = actividadList.get(cont);
+			cont++;
 		}
 		
 		raf.close();

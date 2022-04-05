@@ -19,8 +19,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+
 import modelo.GenerarXML;
 import modelo.SecuencialClasesApuntadas;
+import modelo.objetosDAO.ClaseDAO;
 
 @SuppressWarnings("serial")
 public class ApuntarClase extends JPanel {
@@ -38,6 +41,7 @@ public class ApuntarClase extends JPanel {
 		n_clase.setBounds(50, 300, 200, 40);
 		
 		JTextField n_text = new JTextField();
+		n_text.setEditable(false);
 		n_text.setBounds(50, 350, 150, 30);
 		
 		JLabel s_hora = new JLabel("Seleccionar hora:");
@@ -62,7 +66,11 @@ public class ApuntarClase extends JPanel {
 					if(c_horas.getSelectedItem().toString().length() == 0) {
 						JOptionPane.showMessageDialog(null, "Debe seleccionar una hora válida");
 					}else {
-						SecuencialClasesApuntadas.guardarClase(n_text.getText(), Ventana.DNI_EJEMPLO, c_horas.getSelectedItem().toString());
+						//if(comprobarNombre(n_text.getText()) == true) {
+							SecuencialClasesApuntadas.guardarClase(n_text.getText(), Ventana.DNI_EJEMPLO, c_horas.getSelectedItem().toString());
+						//}else {
+						//	JOptionPane.showMessageDialog(null, "La clase seleccionada no es válida,\nescriba o seleccioe una clase válida.");
+						//}
 					}
 				}
 			}
@@ -127,7 +135,11 @@ public class ApuntarClase extends JPanel {
 		        int col = tabla.columnAtPoint(evt.getPoint());
 		        
 		        if(row != 6 && col != 0) {
-		        	textField.setText(tabla.getModel().getValueAt(row, col).toString());
+		        	try {
+		        		textField.setText(tabla.getModel().getValueAt(row, col).toString());
+		        	}catch(NullPointerException e) {
+		        		textField.setText("");
+		        	}
 		        	c_horas.setSelectedIndex(row);
 		        }
 		    }
@@ -186,5 +198,22 @@ public class ApuntarClase extends JPanel {
 			posicionLectura += 50;
 		}
 		raf.close();
+	}
+	
+	
+	/**
+	 * Se comprueba si el nombre de la clase seleccionada existe en la base de datos.
+	 * @param nombre
+	 * @return
+	 */
+	private static boolean comprobarNombre(String nombre) {
+		boolean valido = false;
+		//try {
+			if(ClaseDAO.buscar_clase_nombre(nombre).getNombre().length() > 0) {
+				valido = true;
+			}
+		//}catch(NullPointerException | SQLServerException e) {}
+		
+		return valido;
 	}
 }

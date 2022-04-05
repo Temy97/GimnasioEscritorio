@@ -14,6 +14,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+
 import modelo.SecuencialClasesApuntadas;
 import modelo.objetosDAO.ClaseDAO;
 import modelo.objetosDAO.ClienteDAO;
@@ -27,14 +29,15 @@ public class VerClasesApuntadas extends JPanel{
 		
 		JTextArea area = new JTextArea();
 		area.setEditable(false);
-		area.setBounds(780, 50, 200, 400);
+		JScrollPane areaScroll = new JScrollPane(area);
+		areaScroll.setBounds(760, 50, 220, 400);
 		
 		JTable tabla = generarTabla(area);
 		JScrollPane tablaScroll = new JScrollPane(tabla);
 		tablaScroll.setBounds(30, 50, 700, 400);
 		
 		this.add(tablaScroll);
-		this.add(area);
+		this.add(areaScroll);
 	}
 	
 	
@@ -72,12 +75,12 @@ public class VerClasesApuntadas extends JPanel{
 		        
 		        if(col != 0 && col != 1) {
 		        	String[] seleccion = {tabla.getModel().getValueAt(row, 0).toString(), tabla.getModel().getValueAt(row, 1).toString(), tabla.getModel().getValueAt(row, 2).toString()};
-		        	
-		        	System.out.println("El dia [" + seleccion[0] + "], a las [" + seleccion[1] + ", Ud. [" + ClienteDAO.buscar_dni(Ventana.DNI_EJEMPLO).getNombre() + "]"
-		        			+ ", asistió a la clase de: [" + seleccion[2] + "], la cual consiste en [" + ClaseDAO.buscar_clase_nombre(seleccion[2] + "]."));
-		        	
-		        	area.setText("El dia [" + seleccion[0] + "], a las [" + seleccion[1] + ", Ud. [" + ClienteDAO.buscar_dni(Ventana.DNI_EJEMPLO).getNombre() + "]"
-		        			+ ", asistió a la clase de: [" + seleccion[2] + "], la cual consiste en [" + ClaseDAO.buscar_clase_nombre(seleccion[2] + "]."));
+		        	//try {
+		        	area.setText("El dia [" + seleccion[0] + "], a las [" + seleccion[1] + "],\nUd. [" + ClienteDAO.buscar_dni(Ventana.DNI_EJEMPLO).getNombre() + "]"
+		        			+ ", asistió a la clase de:\n[" + seleccion[2] + "], la cual consiste en\n[" + ClaseDAO.buscar_clase_nombre(seleccion[2]).getDescripcion() + "].");
+		        	//}catch(SQLServerException e) {
+		        	//	area.setText("Err.404");
+		        	//}
 		        }
 		    }
 		});

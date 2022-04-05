@@ -4,6 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+
 import controlador.objetos.Clase;
 import modelo.Singletone;
 
