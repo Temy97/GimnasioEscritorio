@@ -87,4 +87,25 @@ public class VerClasesApuntadas extends JPanel{
 		
 		return tabla;
 	}
+	
+	
+	/**
+	 * Se genera un nuveo {@code String} con saltos de línea, cada
+	 * 30 caracteres, en base a la cadena de caracteres
+	 * recivida por parámetro.
+	 * @param str
+	 * @return
+	 */
+	public static String saltosDeLinea(String str) {
+		String cadena_apoyo = "";
+		
+		for (int i = 1; i < str.length() + 1; i++) {
+			cadena_apoyo = cadena_apoyo + str.charAt(i - 1);
+			if((i % 30) == 0) {
+				cadena_apoyo = cadena_apoyo + "\n";
+			}
+		}
+		
+		return cadena_apoyo;
+	}
 }

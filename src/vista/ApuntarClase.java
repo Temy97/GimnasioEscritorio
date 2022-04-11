@@ -19,8 +19,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import com.microsoft.sqlserver.jdbc.SQLServerException;
-
 import modelo.GenerarXML;
 import modelo.SecuencialClasesApuntadas;
 import modelo.objetosDAO.ClaseDAO;
@@ -206,6 +204,7 @@ public class ApuntarClase extends JPanel {
 	 * @param nombre
 	 * @return
 	 */
+	@SuppressWarnings("unused")
 	private static boolean comprobarNombre(String nombre) {
 		boolean valido = false;
 		//try {

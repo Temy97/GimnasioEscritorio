@@ -41,6 +41,7 @@ public class Ventana extends JFrame {
 	private JPanel panel = PANEL_IMAGEN_FONDO;
 	private VerClasesApuntadas panelVerClasesApuntadas = new VerClasesApuntadas(this);
 	private ApuntarClase panelApuntarse = new ApuntarClase(this);
+	private VerClases panelVerClases = new VerClases(this);
 	private CambiarDatos panelCambiarDatos = new CambiarDatos(this);
 	
 	public static final String DNI_EJEMPLO = "12345678D";
@@ -114,6 +115,12 @@ public class Ventana extends JFrame {
 		
 		JMenuItem ver_clases = new JMenuItem("Ver clases");
 		ver_clases.setToolTipText("Ver los horarios semanales");
+		ver_clases.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				llamarVerClases();
+			}
+		});
 		
 		JMenuItem cambiar_datos = new JMenuItem("Cambiar datos");
 		cambiar_datos.setToolTipText("Acceder al menu para cambiar datos personales");
@@ -126,13 +133,13 @@ public class Ventana extends JFrame {
 		
 		JMenuItem salir = new JMenuItem("Salir");
 		salir.setToolTipText("Cerrar la aplicacion");
-		
 		salir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				modelo.Singletone.cierre();
 				System.exit(0);
-			}});
+			}
+		});
 		
 		menu.add(inicio);
 		
@@ -184,6 +191,19 @@ public class Ventana extends JFrame {
 		limpiarContenido(panelApuntarse);
 		panelApuntarse = new ApuntarClase(this);
 		panel = panelApuntarse;
+		yo.setContentPane(panel);
+	}
+	
+	
+	/**
+	 * Provoca que la ventana muestre el JPanel
+	 * correspondiente al atributo 'VerClases'.
+	 */
+	public void llamarVerClases() {
+		limpiarContenido(panel);
+		limpiarContenido(panelVerClases);
+		panelVerClases = new VerClases(this);
+		panel = panelVerClases;
 		yo.setContentPane(panel);
 	}
 	
