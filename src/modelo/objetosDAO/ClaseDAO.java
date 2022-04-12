@@ -3,6 +3,7 @@ package modelo.objetosDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
@@ -119,6 +120,29 @@ public class ClaseDAO {
 		}
 		
 		return clase;
+	}
+	
+	
+	/**
+	 * Se devuelve un {@code ArrayList} con todas
+	 * las clases encontradas en la base de datos.
+	 * @return
+	 */
+	public static ArrayList<Clase> todasLasClases() {
+		ArrayList<Clase> lista = new ArrayList<Clase>();
+		
+		String consulta = "SELECT * FROM clase;";
+		
+		try {
+			ResultSet rs = Singletone.getInstance().createStatement().executeQuery(consulta);
+			while(rs.next())
+				lista.add(new Clase(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return lista;
 	}
 	
 	
