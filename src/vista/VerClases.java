@@ -1,5 +1,7 @@
 package vista;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -49,13 +51,41 @@ public class VerClases extends JPanel {
 		
 		JTextArea area_descripcion = new JTextArea();
 		area_descripcion.setBounds(550, 50, 400, 200);
+		area_descripcion.setEditable(false);
+		
 		
 		JButton ir_apuntarse = new JButton("Ir a apuntarse");
+		ir_apuntarse.setToolTipText("Se abre el selector de clases para apuntarse.");
 		ir_apuntarse.setBounds(300, 400, 120, 60);
+		ir_apuntarse.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				((Ventana) ventana).llamarApuntarse();
+			}
+		});
+		
 		JButton limpiar = new JButton("Limpiar");
+		limpiar.setToolTipText("Vacía todos los campos con datos.");
 		limpiar.setBounds(550, 400, 120, 60);
+		limpiar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				nombre.setText(INICIO_JLABEL_NOMBRE + FINAL_JLABEL_NOMBRE);
+				n_profesor.setText(INICIO_JLABEL_PROFESOR + FINAL_JLABEL_PROFESOR);
+				area_descripcion.setText("");
+			}
+		});
+		
 		JButton inicio = new JButton("Inicio");
+		inicio.setToolTipText("Se redirige a la ventana de inicio.");
 		inicio.setBounds(800, 400, 120, 60);
+		inicio.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				((Ventana) ventana).llamarInicio();
+			}
+		});
+		
 		
 		JTable tabla = generarTabla(nombre, n_profesor, area_descripcion);
 		JScrollPane scroll = new JScrollPane(tabla);
@@ -74,7 +104,7 @@ public class VerClases extends JPanel {
 	//METODOS:
 	public static JTable generarTabla(JLabel nombre, JLabel n_profesor, JTextArea descripcion) {
 		ArrayList<Clase> lista = ClaseDAO.todasLasClases();
-		System.out.println(lista.size());
+		
 		String[] cabecera = {"CLASES"};
 		String[][] tuplas = new String[lista.size()][1];
 		
@@ -83,17 +113,19 @@ public class VerClases extends JPanel {
 		}
 		
 		JTable tabla = new JTable(tuplas, cabecera);
+		tabla.setEnabled(false);
 		
 		DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();
 		centrado.setHorizontalAlignment(JLabel.CENTER);
+		tabla.getColumnModel().getColumn(0).setCellRenderer(centrado);
 		
 		tabla.addMouseListener(new MouseAdapter() {
 			@Override
 		    public void mouseClicked(MouseEvent evt) {
 				int row = tabla.rowAtPoint(evt.getPoint());
 		        
-				nombre.setText(lista.get(row).getNombre());
-				n_profesor.setText(ProfesorDAO.buscar_profesor(lista.get(row).getDni_profesor()).getNombre());
+				nombre.setText(INICIO_JLABEL_NOMBRE + lista.get(row).getNombre() + FINAL_JLABEL_NOMBRE);
+				n_profesor.setText(INICIO_JLABEL_PROFESOR + ProfesorDAO.buscar_profesor(lista.get(row).getDni_profesor()).getNombre() + FINAL_JLABEL_PROFESOR);
 				descripcion.setText(lista.get(row).getDescripcion());
 		    }
 		});
