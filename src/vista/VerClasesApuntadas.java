@@ -28,11 +28,12 @@ public class VerClasesApuntadas extends JPanel{
 		this.setLayout(null);
 		
 		JTextArea area = new JTextArea();
+		area.setFont(((Ventana) ventana).getFuenteAreas());
 		area.setEditable(false);
 		JScrollPane areaScroll = new JScrollPane(area);
 		areaScroll.setBounds(760, 50, 220, 400);
 		
-		JTable tabla = generarTabla(area);
+		JTable tabla = generarTabla(area, ventana);
 		JScrollPane tablaScroll = new JScrollPane(tabla);
 		tablaScroll.setBounds(30, 50, 700, 400);
 		
@@ -48,7 +49,7 @@ public class VerClasesApuntadas extends JPanel{
 	 * @param c_horas 
 	 * @return
 	 */
-	public static JTable generarTabla(JTextArea area) {
+	public static JTable generarTabla(JTextArea area, JFrame ventana) {
 		String[][] tuplas = null;
 		String[] cabecera = {"FECHA", "HORA", "ACTIVIDAD"};
 		
@@ -59,6 +60,8 @@ public class VerClasesApuntadas extends JPanel{
 		}
 		
 		JTable tabla = new JTable(tuplas, cabecera);
+		tabla.getTableHeader().setFont(((Ventana) ventana).getFuenteTablas());
+		tabla.setFont(((Ventana) ventana).getFuenteTablas());
 		
 		DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();
 		centrado.setHorizontalAlignment(JLabel.CENTER);

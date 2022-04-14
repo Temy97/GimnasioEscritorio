@@ -36,24 +36,29 @@ public class ApuntarClase extends JPanel {
 		this.setLayout(null);
 		
 		JLabel n_clase = new JLabel("Nombre de la clase:");
+		n_clase.setFont(((Ventana) ventana).getFuenteGeneral());
 		n_clase.setBounds(50, 300, 200, 40);
 		
 		JTextField n_text = new JTextField();
+		n_text.setFont(((Ventana) ventana).getFuenteAreas());
 		n_text.setEditable(false);
 		n_text.setBounds(50, 350, 150, 30);
 		
 		JLabel s_hora = new JLabel("Seleccionar hora:");
+		s_hora.setFont(((Ventana) ventana).getFuenteGeneral());
 		s_hora.setBounds(250, 300, 100, 40);
 		
 		JComboBox<String> c_horas = new JComboBox<String>(HORAS);
+		c_horas.setFont(((Ventana) ventana).getFuenteGeneral());
 		c_horas.setBounds(250, 350, 100, 30);
 		
-		JTable tabla = generarTabla(n_text, c_horas);
+		JTable tabla = generarTabla(n_text, c_horas, ventana);
 		JScrollPane tablaScroll = new JScrollPane(tabla);
 		tablaScroll.setBounds(50, 50, 900, 215);
 		
 		
 		JButton confirmar = new JButton("Confirmar");
+		confirmar.setFont(((Ventana) ventana).getFuenteGeneral());
 		confirmar.setBounds(700, 320, 120, 40);
 		confirmar.addActionListener(new ActionListener() {
 			@Override
@@ -75,6 +80,7 @@ public class ApuntarClase extends JPanel {
 		});
 		
 		JButton imprimir = new JButton("Imprimir horario");
+		imprimir.setFont(((Ventana) ventana).getFuenteGeneral());
 		imprimir.setBounds(680, 400, 160, 40);
 		imprimir.addActionListener(new ActionListener() {
 			@Override
@@ -104,7 +110,7 @@ public class ApuntarClase extends JPanel {
 	 * @param c_horas 
 	 * @return
 	 */
-	public static JTable generarTabla(JTextField textField, JComboBox<String> c_horas) {
+	public static JTable generarTabla(JTextField textField, JComboBox<String> c_horas, JFrame ventana) {
 		String[][] tuplas = new String[HORAS.length][CABECERA.length];
 		
 		for (int i = 0; i < HORAS.length; i++) {
@@ -118,6 +124,8 @@ public class ApuntarClase extends JPanel {
 		}
 		
 		JTable tabla = new JTable(tuplas, CABECERA);
+		tabla.getTableHeader().setFont(((Ventana) ventana).getFuenteTablas());
+		tabla.setFont(((Ventana) ventana).getFuenteTablas());
 		
 		DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();
 		centrado.setHorizontalAlignment(JLabel.CENTER);

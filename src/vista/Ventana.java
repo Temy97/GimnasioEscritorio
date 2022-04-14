@@ -38,16 +38,18 @@ public class Ventana extends JFrame {
 			super.paint(g);
 		}
 	};
+	
+	private Font fuenteGeneral = new Font("SansSerif", Font.BOLD, 12);
+	private Font fuenteTablas = new Font("SansSerif", Font.PLAIN, 12);
+	private Font fuenteAreas = new Font("SansSerif", Font.PLAIN, 12);
+	
 	private Ventana yo = this;
 	private JPanel panel = PANEL_IMAGEN_FONDO;
 	private VerClasesApuntadas panelVerClasesApuntadas = new VerClasesApuntadas(this);
 	private ApuntarClase panelApuntarse = new ApuntarClase(this);
 	private VerClases panelVerClases = new VerClases(this);
 	private CambiarDatos panelCambiarDatos = new CambiarDatos(this);
-	
-	private Font fuenteGeneral = new Font("SansSerif", Font.BOLD, 12);
-	private Font fuenteTablas = new Font("SansSerif", Font.PLAIN, 12);
-	private Font fuenteAreas = new Font("SansSerif", Font.PLAIN, 12);
+	private Opciones panelOpciones = new Opciones(this);
 	
 	public static final String DNI_EJEMPLO = "12345678D";
 	
@@ -137,6 +139,15 @@ public class Ventana extends JFrame {
 			}
 		});
 		
+		JMenuItem options = new JMenuItem("Opciones Generales");
+		options.setToolTipText("Opciones genéricas de la app, como editar el tamaño de la letra");
+		options.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				llamarOpciones();
+			}
+		});
+		
 		JMenuItem salir = new JMenuItem("Salir");
 		salir.setToolTipText("Cerrar la aplicacion");
 		salir.addActionListener(new ActionListener() {
@@ -155,6 +166,7 @@ public class Ventana extends JFrame {
 		menu.add(menu_clases);
 		
 		menu_opciones.add(cambiar_datos);
+		menu_opciones.add(options);
 		menu.add(menu_opciones);
 		
 		menu.add(salir);
@@ -223,6 +235,19 @@ public class Ventana extends JFrame {
 		limpiarContenido(panelCambiarDatos);
 		panelCambiarDatos = new CambiarDatos(this);
 		panel = panelCambiarDatos;
+		yo.setContentPane(panel);
+	}
+	
+	
+	/**
+	 * Provoca que la ventana muestre el JPanel
+	 * correspondiente al atributo 'panelOpciones'.
+	 */
+	public void llamarOpciones() {
+		limpiarContenido(panel);
+		limpiarContenido(panelOpciones);
+		panelOpciones = new Opciones(this);
+		panel = panelOpciones;
 		yo.setContentPane(panel);
 	}
 	
