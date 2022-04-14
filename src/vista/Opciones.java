@@ -96,17 +96,17 @@ public class Opciones extends JPanel {
 		textos_areas.setBounds(50, 250, 160, 20);
 		
 		JCheckBox negrita_areas = new JCheckBox("Activar/Desactivar Negrita");
-		negrita_areas.setFont(((Ventana) ventana).getFuenteTablas());
+		negrita_areas.setFont(((Ventana) ventana).getFuenteAreas());
 		negrita_areas.setSelected(false);
 		negrita_areas.setBounds(240, 250, 200, 20);
 		
 		JComboBox<String> tamanos_areas = new JComboBox<String>(SIZES);
-		tamanos_areas.setFont(((Ventana) ventana).getFuenteTablas());
+		tamanos_areas.setFont(((Ventana) ventana).getFuenteAreas());
 		tamanos_areas.setBounds(440, 250, 100, 20);
 		tamanos_areas.setSelectedIndex(1);
 		
 		JComboBox<String> fuentes_areas = new JComboBox<String>(FUENTES);
-		fuentes_areas.setFont(((Ventana) ventana).getFuenteTablas());
+		fuentes_areas.setFont(((Ventana) ventana).getFuenteAreas());
 		fuentes_areas.setBounds(590, 250, 200, 20);
 		int index_areas = 0;
 		for (int i = 0; i < FUENTES.length; i++) {
