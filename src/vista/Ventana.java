@@ -1,5 +1,6 @@
 package vista;
 
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Graphics;
 import java.awt.BorderLayout;
@@ -44,6 +45,10 @@ public class Ventana extends JFrame {
 	private VerClases panelVerClases = new VerClases(this);
 	private CambiarDatos panelCambiarDatos = new CambiarDatos(this);
 	
+	private Font fuenteGeneral = new Font("SansSerif", Font.BOLD, 12);
+	private Font fuenteTablas = new Font("SansSerif", Font.PLAIN, 12);
+	private Font fuenteAreas = new Font("SansSerif", Font.PLAIN, 12);
+	
 	public static final String DNI_EJEMPLO = "12345678D";
 	
 	//CONSTRUCTOR:
@@ -64,6 +69,7 @@ public class Ventana extends JFrame {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setSize((int) (screenSize.getWidth() / 6) * 4, (int) (screenSize.getHeight() / 6) * 4);
 		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 		
 		this.setJMenuBar(barraCliente());
 		this.setContentPane(panel);
@@ -230,5 +236,26 @@ public class Ventana extends JFrame {
 		contenido.removeAll();
 		contenido.revalidate();
 		contenido.repaint();
+	}
+	
+	
+	//GET-SET:
+	public Font getFuenteGeneral() {
+		return fuenteGeneral;
+	}
+	public void setFuenteGeneral(Font fuente) {
+		this.fuenteGeneral = fuente;
+	}
+	public Font getFuenteTablas() {
+		return fuenteTablas;
+	}
+	public void setFuenteTablas(Font fuente) {
+		this.fuenteTablas = fuente;
+	}
+	public Font getFuenteAreas() {
+		return fuenteAreas;
+	}
+	public void setFuenteAreas(Font fuente) {
+		this.fuenteAreas = fuente;
 	}
 }
