@@ -1,4 +1,4 @@
-package vista;
+package vista_cliente;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -28,7 +28,7 @@ public class VerClasesApuntadas extends JPanel{
 		this.setLayout(null);
 		
 		JTextArea area = new JTextArea();
-		area.setFont(((Ventana) ventana).getFuenteAreas());
+		area.setFont(((VentanaCliente) ventana).getFuenteAreas());
 		area.setEditable(false);
 		JScrollPane areaScroll = new JScrollPane(area);
 		areaScroll.setBounds(760, 50, 220, 400);
@@ -54,14 +54,14 @@ public class VerClasesApuntadas extends JPanel{
 		String[] cabecera = {"FECHA", "HORA", "ACTIVIDAD"};
 		
 		try {
-			tuplas = SecuencialClasesApuntadas.leerSecuencial(Ventana.DNI_EJEMPLO);
+			tuplas = SecuencialClasesApuntadas.leerSecuencial(VentanaCliente.DNI_EJEMPLO);
 		} catch (IOException e) {
 			e.getLocalizedMessage();
 		}
 		
 		JTable tabla = new JTable(tuplas, cabecera);
-		tabla.getTableHeader().setFont(((Ventana) ventana).getFuenteTablas());
-		tabla.setFont(((Ventana) ventana).getFuenteTablas());
+		tabla.getTableHeader().setFont(((VentanaCliente) ventana).getFuenteTablas());
+		tabla.setFont(((VentanaCliente) ventana).getFuenteTablas());
 		
 		DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();
 		centrado.setHorizontalAlignment(JLabel.CENTER);
@@ -79,7 +79,7 @@ public class VerClasesApuntadas extends JPanel{
 		        if(col != 0 && col != 1) {
 		        	String[] seleccion = {tabla.getModel().getValueAt(row, 0).toString(), tabla.getModel().getValueAt(row, 1).toString(), tabla.getModel().getValueAt(row, 2).toString()};
 		        	//try {
-		        	area.setText("El dia [" + seleccion[0] + "], a las [" + seleccion[1] + "],\nUd. [" + ClienteDAO.buscar_dni(Ventana.DNI_EJEMPLO).getNombre() + "]"
+		        	area.setText("El dia [" + seleccion[0] + "], a las [" + seleccion[1] + "],\nUd. [" + ClienteDAO.buscar_dni(VentanaCliente.DNI_EJEMPLO).getNombre() + "]"
 		        			+ ", asistió a la clase de:\n[" + seleccion[2] + "], la cual consiste en\n[" + ClaseDAO.buscar_clase_nombre(seleccion[2]).getDescripcion() + "].");
 		        	//}catch(SQLServerException e) {
 		        	//	area.setText("Err.404");

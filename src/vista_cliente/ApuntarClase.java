@@ -1,4 +1,4 @@
-package vista;
+package vista_cliente;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,20 +36,20 @@ public class ApuntarClase extends JPanel {
 		this.setLayout(null);
 		
 		JLabel n_clase = new JLabel("Nombre de la clase:");
-		n_clase.setFont(((Ventana) ventana).getFuenteGeneral());
+		n_clase.setFont(((VentanaCliente) ventana).getFuenteGeneral());
 		n_clase.setBounds(50, 300, 200, 40);
 		
 		JTextField n_text = new JTextField();
-		n_text.setFont(((Ventana) ventana).getFuenteAreas());
+		n_text.setFont(((VentanaCliente) ventana).getFuenteAreas());
 		n_text.setEditable(false);
 		n_text.setBounds(50, 350, 150, 30);
 		
 		JLabel s_hora = new JLabel("Seleccionar hora:");
-		s_hora.setFont(((Ventana) ventana).getFuenteGeneral());
+		s_hora.setFont(((VentanaCliente) ventana).getFuenteGeneral());
 		s_hora.setBounds(250, 300, 100, 40);
 		
 		JComboBox<String> c_horas = new JComboBox<String>(HORAS);
-		c_horas.setFont(((Ventana) ventana).getFuenteGeneral());
+		c_horas.setFont(((VentanaCliente) ventana).getFuenteGeneral());
 		c_horas.setBounds(250, 350, 100, 30);
 		
 		JTable tabla = generarTabla(n_text, c_horas, ventana);
@@ -58,7 +58,7 @@ public class ApuntarClase extends JPanel {
 		
 		
 		JButton confirmar = new JButton("Confirmar");
-		confirmar.setFont(((Ventana) ventana).getFuenteGeneral());
+		confirmar.setFont(((VentanaCliente) ventana).getFuenteGeneral());
 		confirmar.setBounds(700, 320, 120, 40);
 		confirmar.addActionListener(new ActionListener() {
 			@Override
@@ -70,7 +70,7 @@ public class ApuntarClase extends JPanel {
 						JOptionPane.showMessageDialog(null, "Debe seleccionar una hora válida");
 					}else {
 						//if(comprobarNombre(n_text.getText()) == true) {
-							SecuencialClasesApuntadas.guardarClase(n_text.getText(), Ventana.DNI_EJEMPLO, c_horas.getSelectedItem().toString());
+							SecuencialClasesApuntadas.guardarClase(n_text.getText(), VentanaCliente.DNI_EJEMPLO, c_horas.getSelectedItem().toString());
 						//}else {
 						//	JOptionPane.showMessageDialog(null, "La clase seleccionada no es válida,\nescriba o seleccioe una clase válida.");
 						//}
@@ -80,7 +80,7 @@ public class ApuntarClase extends JPanel {
 		});
 		
 		JButton imprimir = new JButton("Imprimir horario");
-		imprimir.setFont(((Ventana) ventana).getFuenteGeneral());
+		imprimir.setFont(((VentanaCliente) ventana).getFuenteGeneral());
 		imprimir.setBounds(680, 400, 160, 40);
 		imprimir.addActionListener(new ActionListener() {
 			@Override
@@ -124,8 +124,8 @@ public class ApuntarClase extends JPanel {
 		}
 		
 		JTable tabla = new JTable(tuplas, CABECERA);
-		tabla.getTableHeader().setFont(((Ventana) ventana).getFuenteTablas());
-		tabla.setFont(((Ventana) ventana).getFuenteTablas());
+		tabla.getTableHeader().setFont(((VentanaCliente) ventana).getFuenteTablas());
+		tabla.setFont(((VentanaCliente) ventana).getFuenteTablas());
 		
 		DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();
 		centrado.setHorizontalAlignment(JLabel.CENTER);

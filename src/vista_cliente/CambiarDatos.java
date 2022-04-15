@@ -1,4 +1,4 @@
-package vista;
+package vista_cliente;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +20,7 @@ public class CambiarDatos extends JPanel {
 	
 	//ATRIBUTOS:
 	private boolean asteriscos = false;
-	private Cliente cliente = ClienteDAO.buscar_dni(Ventana.DNI_EJEMPLO);
+	private Cliente cliente = ClienteDAO.buscar_dni(VentanaCliente.DNI_EJEMPLO);
 	//private Ventana ventana;
 	
 	
@@ -28,7 +28,7 @@ public class CambiarDatos extends JPanel {
 	public CambiarDatos(JFrame ventana) {
 		this.setLayout(null);
 		
-		this.cliente = ClienteDAO.buscar_dni(Ventana.DNI_EJEMPLO);
+		this.cliente = ClienteDAO.buscar_dni(VentanaCliente.DNI_EJEMPLO);
 		//this.ventana = (Ventana) ventana;
 		
 		//JLbels:
@@ -128,7 +128,7 @@ public class CambiarDatos extends JPanel {
 		inicio.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				((Ventana) ventana).llamarInicio();
+				((VentanaCliente) ventana).llamarInicio();
 			}
 		});
 		
@@ -195,7 +195,7 @@ public class CambiarDatos extends JPanel {
 		//OJO con el orden de insercion de los datos y como estan en los constructores, metodos y columnas de la dbo.
 		Cliente cliente = new Cliente(strings[2], strings[3], strings[0], strings[1], Integer.parseInt(strings[4]), Cliente.generarEstado(strings[5]), Double.parseDouble(strings[6]));
 		
-		if(ClienteDAO.editar_datos_cliente(Ventana.DNI_EJEMPLO, cliente)) {
+		if(ClienteDAO.editar_datos_cliente(VentanaCliente.DNI_EJEMPLO, cliente)) {
 			JOptionPane.showMessageDialog(null, "Se han actualizado los datos correctamente", "", JOptionPane.PLAIN_MESSAGE, null);
 		}else {
 			JOptionPane.showMessageDialog(null, "No se han podido actualizar los datos", "", JOptionPane.WARNING_MESSAGE, null);
@@ -204,6 +204,6 @@ public class CambiarDatos extends JPanel {
 	
 	
 	public void actualizarCliente() {
-		this.cliente = ClienteDAO.buscar_dni(Ventana.DNI_EJEMPLO);
+		this.cliente = ClienteDAO.buscar_dni(VentanaCliente.DNI_EJEMPLO);
 	}
 }

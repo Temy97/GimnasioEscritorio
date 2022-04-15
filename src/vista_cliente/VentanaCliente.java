@@ -1,4 +1,4 @@
-package vista;
+package vista_cliente;
 
 import java.awt.Font;
 import java.awt.Image;
@@ -26,7 +26,7 @@ import modelo.objetosDAO.AdministrativoDAO;
 import modelo.objetosDAO.ClienteDAO;
 
 @SuppressWarnings("serial")
-public class Ventana extends JFrame {
+public class VentanaCliente extends JFrame {
 	
 	//ATRIBUTOS:
 	private static final JPanel PANEL_IMAGEN_FONDO = new JPanel() {
@@ -43,7 +43,7 @@ public class Ventana extends JFrame {
 	private Font fuenteTablas = new Font("SansSerif", Font.PLAIN, 12);
 	private Font fuenteAreas = new Font("SansSerif", Font.PLAIN, 12);
 	
-	private Ventana yo = this;
+	private VentanaCliente yo = this;
 	private JPanel panel = PANEL_IMAGEN_FONDO;
 	private VerClasesApuntadas panelVerClasesApuntadas = new VerClasesApuntadas(this);
 	private ApuntarClase panelApuntarse = new ApuntarClase(this);
@@ -54,7 +54,7 @@ public class Ventana extends JFrame {
 	public static final String DNI_EJEMPLO = "12345678D";
 	
 	//CONSTRUCTOR:
-	public Ventana() {
+	public VentanaCliente() {
 		
 		try {
 			JFrame.setDefaultLookAndFeelDecorated(true);
@@ -84,7 +84,7 @@ public class Ventana extends JFrame {
 	
 	//METODOS:
 	public static void main(String[] args) {
-		new Ventana();
+		new VentanaCliente();
 	}
 	
 	

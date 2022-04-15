@@ -1,4 +1,4 @@
-package vista;
+package vista_cliente;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -43,35 +43,35 @@ public class VerClases extends JPanel {
 		this.setLayout(null);
 		
 		JLabel nombre = new JLabel(INICIO_JLABEL_NOMBRE + FINAL_JLABEL_NOMBRE);
-		nombre.setFont(((Ventana) ventana).getFuenteGeneral());
+		nombre.setFont(((VentanaCliente) ventana).getFuenteGeneral());
 		nombre.setBounds(320, 80, 120, 60);
 		nombre.setBorder(/*new TitledBorder("")*/ new EtchedBorder() /*new SoftBevelBorder(BevelBorder.LOWERED)*/);
 		
 		JLabel n_profesor = new JLabel(INICIO_JLABEL_PROFESOR + FINAL_JLABEL_PROFESOR);
 		
 		n_profesor.setBounds(320, 140, 120, 60);
-		n_profesor.setFont(((Ventana) ventana).getFuenteGeneral());
+		n_profesor.setFont(((VentanaCliente) ventana).getFuenteGeneral());
 		n_profesor.setBorder(new EtchedBorder());
 		
 		JTextArea area_descripcion = new JTextArea();
-		area_descripcion.setFont(((Ventana) ventana).getFuenteAreas());
+		area_descripcion.setFont(((VentanaCliente) ventana).getFuenteAreas());
 		area_descripcion.setBounds(550, 50, 400, 200);
 		area_descripcion.setEditable(false);
 		
 		
 		JButton ir_apuntarse = new JButton("Ir a apuntarse");
-		ir_apuntarse.setFont(((Ventana) ventana).getFuenteGeneral());
+		ir_apuntarse.setFont(((VentanaCliente) ventana).getFuenteGeneral());
 		ir_apuntarse.setToolTipText("Se abre el selector de clases para apuntarse.");
 		ir_apuntarse.setBounds(300, 400, 120, 60);
 		ir_apuntarse.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				((Ventana) ventana).llamarApuntarse();
+				((VentanaCliente) ventana).llamarApuntarse();
 			}
 		});
 		
 		JButton limpiar = new JButton("Limpiar");
-		limpiar.setFont(((Ventana) ventana).getFuenteGeneral());
+		limpiar.setFont(((VentanaCliente) ventana).getFuenteGeneral());
 		limpiar.setToolTipText("Vacía todos los campos con datos.");
 		limpiar.setBounds(550, 400, 120, 60);
 		limpiar.addActionListener(new ActionListener() {
@@ -84,13 +84,13 @@ public class VerClases extends JPanel {
 		});
 		
 		JButton inicio = new JButton("Inicio");
-		inicio.setFont(((Ventana) ventana).getFuenteGeneral());
+		inicio.setFont(((VentanaCliente) ventana).getFuenteGeneral());
 		inicio.setToolTipText("Se redirige a la ventana de inicio.");
 		inicio.setBounds(800, 400, 120, 60);
 		inicio.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				((Ventana) ventana).llamarInicio();
+				((VentanaCliente) ventana).llamarInicio();
 			}
 		});
 		
@@ -121,8 +121,8 @@ public class VerClases extends JPanel {
 		}
 		
 		JTable tabla = new JTable(tuplas, cabecera);
-		tabla.getTableHeader().setFont(((Ventana) ventana).getFuenteTablas());
-		tabla.setFont(((Ventana) ventana).getFuenteTablas());
+		tabla.getTableHeader().setFont(((VentanaCliente) ventana).getFuenteTablas());
+		tabla.setFont(((VentanaCliente) ventana).getFuenteTablas());
 		tabla.setEnabled(false);
 		
 		DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();
