@@ -97,7 +97,7 @@ public class AdministrativoDAO {
 	
 	/**
 	 * Este metodo elimina todos los usuarios con los dni coincidentes con los pasados por parametro,
-	 * devolviendo un número correspondiente a las tuplas afectadas, si se pasan valores inválidos
+	 * devolviendo un nÃºmero correspondiente a las tuplas afectadas, si se pasan valores invï¿½lidos
 	 * no salta excepcion, solo indica las filas afectadas.
 	 * @param strings
 	 * @return int correspondiente al numero de filas afectadas.
@@ -135,6 +135,29 @@ public class AdministrativoDAO {
 			ResultSet rs = Singletone.getInstance().createStatement().executeQuery(consulta);
 			rs.next();
 			admin = new Administrativo(dni, pasword, rs.getString(3), rs.getString(4));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return admin;
+	}
+	
+	
+	/**
+	 * Se extraen los datos de todos los administrativos
+	 * en forma de ArrayList.
+	 * @return ArrayList<Administrativo>
+	 */
+	public static ArrayList<Administrativo> todos_los_admins() {
+		ArrayList<Administrativo> admin = new ArrayList<Administrativo>();
+		
+		String consulta = "SELECT * FROM administrativo;";
+		
+		try {
+			ResultSet rs = Singletone.getInstance().createStatement().executeQuery(consulta);
+			while(rs.next())
+				admin.add(new Administrativo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
