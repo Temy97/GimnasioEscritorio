@@ -2,11 +2,14 @@ package vista_administrativo;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -20,8 +23,10 @@ public class PanelAdministrativo extends JPanel {
 	
 	//Atributos:
 	private final String[] cabecera = {"DNI", "Contraseña", "Nombre", "Apellido"};
+	private final String[] opciones = {"Sí", "No"};
 	private JScrollPane scroll = new JScrollPane(crearTabla("", "", ""));
 	private PanelAdministrativo yo = this;
+	private Administrativo administartivo = new Administrativo("", "", "", "");
 	
 	
 	//CONSTRUCTOR:
@@ -61,6 +66,12 @@ public class PanelAdministrativo extends JPanel {
 		JButton nuevo = new JButton("Crear nuevo");
 		nuevo.setBounds(150, 300, 120, 40);
 		JButton borrar = new JButton("Borrar");
+		borrar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showOptionDialog(null, "Realmente desea borrar a: ", "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[0]);
+			}
+		});
 		borrar.setBounds(760, 300, 120, 40);
 		
 		
@@ -95,6 +106,12 @@ public class PanelAdministrativo extends JPanel {
 		ArrayList<Administrativo> admins = AdministrativoDAO.todos_los_admins();
 		
 		String[][] tuplas = new String[admins.size()][cabecera.length];
+		
+		for (int i = 0; i < admins.size(); i++) {
+			for (int j = 0; j < cabecera.length; j++) {
+				tuplas[i][j] = " ";
+			}
+		}
 		
 		int cont = 0;
 		
@@ -141,7 +158,17 @@ public class PanelAdministrativo extends JPanel {
 			}
 		}
 		
-		return new JTable(tuplas, cabecera);
+		JTable tabla = new JTable(tuplas, cabecera);
+		tabla.addMouseListener(new MouseAdapter() {
+			@Override
+		    public void mouseClicked(MouseEvent evt) {
+				int row = tabla.rowAtPoint(evt.getPoint());
+				System.out.println(tabla.getValueAt(row, 0).toString());
+		        administartivo = new Administrativo(tabla.getValueAt(row, 0).toString(), tabla.getValueAt(row, 1).toString(), tabla.getValueAt(row, 2).toString(), tabla.getValueAt(row, 3).toString());
+		    }
+		});
+		
+		return tabla;
 	}
 	
 	
