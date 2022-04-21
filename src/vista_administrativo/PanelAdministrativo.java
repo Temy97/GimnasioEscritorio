@@ -30,9 +30,49 @@ public class PanelAdministrativo extends JPanel {
 	
 	
 	//CONSTRUCTOR:
+	/**
+	 * Constructor default con tabla vacía.
+	 * @param ventana
+	 */
 	public PanelAdministrativo(JFrame ventana) {
 		this.setLayout(null);
 		
+		rellenar(ventana, this);
+	}
+	
+	
+	/**
+	 * Constructor que genera el panel con los campos rellenos
+	 * segun el dni especificado.
+	 * @param ventana
+	 * @param dni
+	 */
+	public PanelAdministrativo(JFrame ventana, String dni) {
+		this.setLayout(null);
+		
+		scroll = new JScrollPane(crearTabla(dni, "", ""));
+		
+		rellenar(ventana, this);
+	}
+	
+	
+	/**
+	 * Cosntructor que genera el panel con los campos rrellenos
+	 * segun el nombre y/o apellido especificado.
+	 * @param ventana
+	 * @param nombre
+	 * @param apellido
+	 */
+	public PanelAdministrativo(JFrame ventana, String nombre, String apellido) {
+		this.setLayout(null);
+		
+		scroll = new JScrollPane(crearTabla("", nombre, apellido));
+		
+		rellenar(ventana, this);
+	}
+	
+	
+	private void rellenar(JFrame ventana, PanelAdministrativo panelAdministrativo) {
 		JLabel dni = new JLabel("DNI:");
 		dni.setBounds(50, 50, 80, 30);
 		JTextField dni_txt = new JTextField();
@@ -58,6 +98,17 @@ public class PanelAdministrativo extends JPanel {
 		buscar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if(dni_txt.getText().length() == 9) {
+					((VentanaAdministrativo) ventana).llamarPanelAdministrativos(dni_txt.getText());
+				} else {
+					if(nombre_txt.getText().isBlank() == false && apellido_txt.getText().isBlank() == false) {
+						((VentanaAdministrativo) ventana).llamarPanelAdministrativos(nombre_txt.getText(), apellido_txt.getText());
+					}else if(nombre_txt.getText().isBlank() == false && apellido_txt.getText().isBlank() == true) {
+						((VentanaAdministrativo) ventana).llamarPanelAdministrativos(nombre_txt.getText(), "");
+					}else if(nombre_txt.getText().isBlank() == true && apellido_txt.getText().isBlank() == false) {
+						((VentanaAdministrativo) ventana).llamarPanelAdministrativos("", apellido_txt.getText());
+					}
+				}
 				scroll  = new JScrollPane(crearTabla(dni_txt.getText(), nombre_txt.getText(), apellido_txt.getText()));
 				colocarScroll();
 			}
@@ -90,8 +141,8 @@ public class PanelAdministrativo extends JPanel {
 		this.add(nuevo);
 		this.add(borrar);
 	}
-	
-	
+
+
 	//METODOS:
 	/**
 	 * Genera un JTable con los datos recibidos, en el caso
@@ -163,7 +214,7 @@ public class PanelAdministrativo extends JPanel {
 			@Override
 		    public void mouseClicked(MouseEvent evt) {
 				int row = tabla.rowAtPoint(evt.getPoint());
-				System.out.println(tabla.getValueAt(row, 0).toString());
+				
 		        administartivo = new Administrativo(tabla.getValueAt(row, 0).toString(), tabla.getValueAt(row, 1).toString(), tabla.getValueAt(row, 2).toString(), tabla.getValueAt(row, 3).toString());
 		    }
 		});

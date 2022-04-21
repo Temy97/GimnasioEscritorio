@@ -166,6 +166,32 @@ public class VentanaAdministrativo extends JFrame {
 	
 	
 	/**
+	 * Provoca que la ventana muestre el JPanel correspondiente,
+	 * con la tabla editada por dni.
+	 */
+	public void llamarPanelAdministrativos(String dni) {
+		limpiarContenido(panel);
+		limpiarContenido(panel_administrativo);
+		panel_administrativo = new PanelAdministrativo(this, dni);
+		panel = panel_administrativo;
+		yo.setContentPane(panel);
+	}
+	
+	
+	/**
+	 * Provoca que la ventana muestre el JPanel correspondiente,
+	 * con la tabla editada por nombre y/o apellido.
+	 */
+	public void llamarPanelAdministrativos(String nombre, String apellido) {
+		limpiarContenido(panel);
+		limpiarContenido(panel_administrativo);
+		panel_administrativo = new PanelAdministrativo(this, nombre, apellido);
+		panel = panel_administrativo;
+		yo.setContentPane(panel);
+	}
+	
+	
+	/**
 	 * Provoca que la ventana muestre el JPanel correspondiente.
 	 */
 	public void llamarPanelClases() {
