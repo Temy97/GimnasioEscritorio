@@ -7,7 +7,7 @@ public class Utiles {
 	//METODOS:
 	/**
 	 * Metodo que recibe una cadena, comprueba y valida
-	 * que dicha cadena se un dni valido, tanto en tamaño
+	 * que dicha cadena se un dni valido, tanto en tamaÃ±o
 	 * y forma como en letra correspondiente al numero.
 	 * @param dni
 	 * @return
@@ -23,6 +23,24 @@ public class Utiles {
 			if(letra == letras[num%23]) {
 				valido = true;
 			}
+		}
+		
+		return valido;
+	}
+	
+	
+	/**
+	 * Comprueba que la cadena pueda se un dni,
+	 * no se comprueba que la letra corresponda
+	 * al numero.
+	 * @param dni
+	 * @return
+	 */
+	public static boolean comprobar_dni_sin_coincidencia(String dni) {
+		boolean valido = false;
+		
+		if(dni.length() == 9 && Pattern.matches("\\d{8}[A-Z]{1}", dni)) {
+			valido = true;
 		}
 		
 		return valido;

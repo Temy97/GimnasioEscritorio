@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import controlador.Utiles;
 import controlador.objetos.Administrativo;
 import modelo.objetosDAO.AdministrativoDAO;
 
@@ -26,7 +27,7 @@ public class PanelAdministrativo extends JPanel {
 	private final String[] opciones = {"Sí", "No"};
 	private JScrollPane scroll = new JScrollPane(crearTabla("", "", ""));
 	private PanelAdministrativo yo = this;
-	private Administrativo administartivo = new Administrativo("", "", "", "");
+	private Administrativo administrativo = new Administrativo("", "", "", "");
 	
 	
 	//CONSTRUCTOR:
@@ -98,29 +99,66 @@ public class PanelAdministrativo extends JPanel {
 		buscar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(dni_txt.getText().length() == 9) {
-					((VentanaAdministrativo) ventana).llamarPanelAdministrativos(dni_txt.getText());
-				} else {
-					if(nombre_txt.getText().isBlank() == false && apellido_txt.getText().isBlank() == false) {
-						((VentanaAdministrativo) ventana).llamarPanelAdministrativos(nombre_txt.getText(), apellido_txt.getText());
-					}else if(nombre_txt.getText().isBlank() == false && apellido_txt.getText().isBlank() == true) {
-						((VentanaAdministrativo) ventana).llamarPanelAdministrativos(nombre_txt.getText(), "");
-					}else if(nombre_txt.getText().isBlank() == true && apellido_txt.getText().isBlank() == false) {
-						((VentanaAdministrativo) ventana).llamarPanelAdministrativos("", apellido_txt.getText());
+				if(!dni_txt.getText().isBlank() || !nombre_txt.getText().isBlank() || !apellido_txt.getText().isBlank()) {
+					if(dni_txt.getText().length() == 9) {
+						((VentanaAdministrativo) ventana).llamarPanelAdministrativos(dni_txt.getText());
+					} else {
+						if(nombre_txt.getText().isBlank() == false && apellido_txt.getText().isBlank() == false) {
+							((VentanaAdministrativo) ventana).llamarPanelAdministrativos(nombre_txt.getText(), apellido_txt.getText());
+						}else if(nombre_txt.getText().isBlank() == false && apellido_txt.getText().isBlank() == true) {
+							((VentanaAdministrativo) ventana).llamarPanelAdministrativos(nombre_txt.getText(), "");
+						}else if(nombre_txt.getText().isBlank() == true && apellido_txt.getText().isBlank() == false) {
+							((VentanaAdministrativo) ventana).llamarPanelAdministrativos("", apellido_txt.getText());
+						}
 					}
+					
+					scroll  = new JScrollPane(crearTabla(dni_txt.getText(), nombre_txt.getText(), apellido_txt.getText()));
+					colocarScroll();
 				}
-				scroll  = new JScrollPane(crearTabla(dni_txt.getText(), nombre_txt.getText(), apellido_txt.getText()));
-				colocarScroll();
 			}
 		});
 		
 		JButton nuevo = new JButton("Crear nuevo");
 		nuevo.setBounds(150, 300, 120, 40);
+		nuevo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(dni_txt.getText().isBlank() == false && pwd_txt.getText().isBlank() == false && nombre_txt.getText().isBlank() == false && apellido_txt.getText().isBlank() == false) {
+					if(Utiles.comprobar_dni_sin_coincidencia(dni_txt.getText()) == false) {
+						JOptionPane.showMessageDialog(null, "El dni debe contener 8 dígitos y una letra [en mayúsculas].", "", JOptionPane.INFORMATION_MESSAGE, null);
+					}else {
+						if(pwd_txt.getText().length() > 20) {
+							JOptionPane.showMessageDialog(null, "La contraseña no puede superar los 20 caracteres.", "", JOptionPane.INFORMATION_MESSAGE, null);
+						}else {
+							if(nombre_txt.getText().length() > 45 || apellido_txt.getText().length() > 45) {
+								JOptionPane.showMessageDialog(null, "Ni el nombre ni el apellido pueden superar los 45 caracteres.", "", JOptionPane.INFORMATION_MESSAGE, null);
+							}else {
+								AdministrativoDAO.insert_admin(new Administrativo(dni_txt.getText(), pwd_txt.getText(), nombre_txt.getText(), apellido_txt.getText()));
+							}
+						}
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "Para crear un nuevo administrativo primero deben\nrellenarse correctamente todos los campos.", "", JOptionPane.INFORMATION_MESSAGE, null);
+				}
+			}
+		});
+		
 		JButton borrar = new JButton("Borrar");
 		borrar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showOptionDialog(null, "Realmente desea borrar a: ", "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[0]);
+				if(administrativo.getDni().isBlank() == false) {
+					if(JOptionPane.showOptionDialog(null, "Realmente desea borrar a: " + administrativo.getNombre() + " [dni: " + administrativo.getDni() + "]", "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[0]) == 0){
+						if(AdministrativoDAO.borrar_admin_por_dni(administrativo.getDni())){
+							JOptionPane.showMessageDialog(null, "El adminnistrativo ha sido eliminado exitosamente.", "", JOptionPane.INFORMATION_MESSAGE, null);
+						}else {
+							JOptionPane.showMessageDialog(null, "Se ha producido n error al borrar al administrativo.", "", JOptionPane.WARNING_MESSAGE, null);
+						}
+					}
+					
+				}else {
+					JOptionPane.showMessageDialog(null, "No hay ningun administrativo seleccionado correctamente.", "", JOptionPane.ERROR_MESSAGE, null);
+				}
 			}
 		});
 		borrar.setBounds(760, 300, 120, 40);
@@ -215,8 +253,13 @@ public class PanelAdministrativo extends JPanel {
 		    public void mouseClicked(MouseEvent evt) {
 				int row = tabla.rowAtPoint(evt.getPoint());
 				
-		        administartivo = new Administrativo(tabla.getValueAt(row, 0).toString(), tabla.getValueAt(row, 1).toString(), tabla.getValueAt(row, 2).toString(), tabla.getValueAt(row, 3).toString());
-		    }
+				try {
+					administrativo = new Administrativo(tabla.getValueAt(row, 0).toString(), tabla.getValueAt(row, 1).toString(), tabla.getValueAt(row, 2).toString(), tabla.getValueAt(row, 3).toString());
+				
+				}catch(NullPointerException e) {
+					administrativo = new Administrativo("", "", "", "");
+				}
+			}
 		});
 		
 		return tabla;
