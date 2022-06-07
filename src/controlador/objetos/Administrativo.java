@@ -1,12 +1,12 @@
 package controlador.objetos;
 
-public class Administrativo {
+public class Administrativo extends SuperClienteAdministrativo{
 	
 	//ATRIBUTOS:
-	private String dni;
+	//private String dni;
 	private String pasword;
-	private String nombre;
-	private String apellidos;
+	//private String nombre;
+	//private String apellidos;
 	
 	
 	
@@ -15,17 +15,17 @@ public class Administrativo {
 	
 	
 	public Administrativo(String dni, String pasword, String nombre, String apellidos) {
-		this.dni = dni;
+		super.setDni(dni);
 		this.pasword = pasword;
-		this.nombre = nombre;
-		this.apellidos = apellidos;
+		super.setNombre(nombre);
+		super.setApellidos(apellidos);
 	}
 	
 	
-	public Administrativo(String dni, String pasword) {
+	/*public Administrativo(String dni, String pasword) {
 		this.dni = dni;
 		this.pasword = pasword;
-	}
+	}*/
 	
 	
 	
@@ -39,10 +39,10 @@ public class Administrativo {
 	
 	//GET-SET:
 	public String getDni() {
-		return dni;
+		return super.getDni();
 	}
 	public void setDni(String dni) {
-		this.dni = dni;
+		super.setDni(dni);
 	}
 	public String getPasword() {
 		return pasword;
@@ -51,15 +51,15 @@ public class Administrativo {
 		this.pasword = pasword;
 	}
 	public String getNombre() {
-		return nombre;
+		return super.getNombre();
 	}
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		super.setNombre(nombre);
 	}
 	public String getApellidos() {
-		return apellidos;
+		return super.getApellidos();
 	}
 	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
+		super.setApellidos(apellidos);
 	}
 }

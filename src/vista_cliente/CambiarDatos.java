@@ -20,15 +20,17 @@ public class CambiarDatos extends JPanel {
 	
 	//ATRIBUTOS:
 	private boolean asteriscos = false;
-	private Cliente cliente = ClienteDAO.buscar_dni(VentanaCliente.DNI_EJEMPLO);
+	private Cliente cliente = ClienteDAO.buscar_dni(datos_cliente.getDni());
 	//private Ventana ventana;
+	private static Cliente datos_cliente;
 	
 	
 	//CONSTRUCTOR:
-	public CambiarDatos(JFrame ventana) {
+	public CambiarDatos(JFrame ventana, Cliente datos_cliente) {
 		this.setLayout(null);
+		this.datos_cliente = datos_cliente;
 		
-		this.cliente = ClienteDAO.buscar_dni(VentanaCliente.DNI_EJEMPLO);
+		this.cliente = ClienteDAO.buscar_dni(datos_cliente.getDni());
 		//this.ventana = (Ventana) ventana;
 		
 		//JLbels:
@@ -195,7 +197,7 @@ public class CambiarDatos extends JPanel {
 		//OJO con el orden de insercion de los datos y como estan en los constructores, metodos y columnas de la dbo.
 		Cliente cliente = new Cliente(strings[2], strings[3], strings[0], strings[1], Integer.parseInt(strings[4]), Cliente.generarEstado(strings[5]), Double.parseDouble(strings[6]));
 		
-		if(ClienteDAO.editar_datos_cliente(VentanaCliente.DNI_EJEMPLO, cliente)) {
+		if(ClienteDAO.editar_datos_cliente(datos_cliente.getDni(), cliente)) {
 			JOptionPane.showMessageDialog(null, "Se han actualizado los datos correctamente", "", JOptionPane.PLAIN_MESSAGE, null);
 		}else {
 			JOptionPane.showMessageDialog(null, "No se han podido actualizar los datos", "", JOptionPane.WARNING_MESSAGE, null);
@@ -204,6 +206,6 @@ public class CambiarDatos extends JPanel {
 	
 	
 	public void actualizarCliente() {
-		this.cliente = ClienteDAO.buscar_dni(VentanaCliente.DNI_EJEMPLO);
+		this.cliente = ClienteDAO.buscar_dni(datos_cliente.getDni());
 	}
 }

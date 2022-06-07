@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
+import controlador.objetos.Cliente;
 import modelo.SecuencialClasesApuntadas;
 import modelo.objetosDAO.ClaseDAO;
 import modelo.objetosDAO.ClienteDAO;
@@ -23,9 +24,13 @@ import modelo.objetosDAO.ClienteDAO;
 @SuppressWarnings("serial")
 public class VerClasesApuntadas extends JPanel{
 	
+	//ATRIBUTOS:
+	private static Cliente datos_cliente;
+	
 	//CONSTRUCTOR:
-	public VerClasesApuntadas(JFrame ventana) {
+	public VerClasesApuntadas(JFrame ventana, Cliente datos_cliente) {
 		this.setLayout(null);
+		this.datos_cliente = datos_cliente;
 		
 		JTextArea area = new JTextArea();
 		area.setFont(((VentanaCliente) ventana).getFuenteAreas());
@@ -54,7 +59,7 @@ public class VerClasesApuntadas extends JPanel{
 		String[] cabecera = {"FECHA", "HORA", "ACTIVIDAD"};
 		
 		try {
-			tuplas = SecuencialClasesApuntadas.leerSecuencial(VentanaCliente.DNI_EJEMPLO);
+			tuplas = SecuencialClasesApuntadas.leerSecuencial(datos_cliente.getDni());
 		} catch (IOException e) {
 			e.getLocalizedMessage();
 		}
@@ -79,7 +84,7 @@ public class VerClasesApuntadas extends JPanel{
 		        if(col != 0 && col != 1) {
 		        	String[] seleccion = {tabla.getModel().getValueAt(row, 0).toString(), tabla.getModel().getValueAt(row, 1).toString(), tabla.getModel().getValueAt(row, 2).toString()};
 		        	//try {
-		        	area.setText("El dia [" + seleccion[0] + "], a las [" + seleccion[1] + "],\nUd. [" + ClienteDAO.buscar_dni(VentanaCliente.DNI_EJEMPLO).getNombre() + "]"
+		        	area.setText("El dia [" + seleccion[0] + "], a las [" + seleccion[1] + "],\nUd. [" + ClienteDAO.buscar_dni(datos_cliente.getDni()).getNombre() + "]"
 		        			+ ", asistió a la clase de:\n[" + seleccion[2] + "], la cual consiste en\n[" + ClaseDAO.buscar_clase_nombre(seleccion[2]).getDescripcion() + "].");
 		        	//}catch(SQLServerException e) {
 		        	//	area.setText("Err.404");

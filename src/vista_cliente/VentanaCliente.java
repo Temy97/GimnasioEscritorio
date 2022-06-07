@@ -45,16 +45,18 @@ public class VentanaCliente extends JFrame {
 	
 	private VentanaCliente yo = this;
 	private JPanel panel = PANEL_IMAGEN_FONDO;
-	private VerClasesApuntadas panelVerClasesApuntadas = new VerClasesApuntadas(this);
-	private ApuntarClase panelApuntarse = new ApuntarClase(this);
+	private VerClasesApuntadas panelVerClasesApuntadas = new VerClasesApuntadas(this, datos_cliente);
+	private ApuntarClase panelApuntarse = new ApuntarClase(this, datos_cliente);
 	private VerClases panelVerClases = new VerClases(this);
-	private CambiarDatos panelCambiarDatos = new CambiarDatos(this);
+	private CambiarDatos panelCambiarDatos = new CambiarDatos(this, datos_cliente);
 	private Opciones panelOpciones = new Opciones(this);
 	
-	public static final String DNI_EJEMPLO = "12345678D";
+	private static Cliente datos_cliente;
+	//public static final String DNI_EJEMPLO = "12345678D";
 	
 	//CONSTRUCTOR:
-	public VentanaCliente() {
+	public VentanaCliente(Cliente datos_cliente) {
+		this.setDatos_cliente(datos_cliente);
 		
 		try {
 			JFrame.setDefaultLookAndFeelDecorated(true);
@@ -83,11 +85,17 @@ public class VentanaCliente extends JFrame {
 	
 	
 	//METODOS:
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		new VentanaCliente();
-	}
+	}*/
 	
 	
+	/**
+	 * Se genera una barra de menu con
+	 * las diversas opciones disponibles
+	 * para los clientes (inicio, apuntarse a clases... etc).
+	 * @return
+	 */
 	private JMenuBar barraCliente() {
 		JMenuBar menu_bar = new JMenuBar();
 		JMenu menu = new JMenu("Inicio");
@@ -194,7 +202,7 @@ public class VentanaCliente extends JFrame {
 	public void llamarVerClasesApuntadas() {
 		limpiarContenido(panel);
 		limpiarContenido(panelVerClasesApuntadas);
-		panelVerClasesApuntadas = new VerClasesApuntadas(this);
+		panelVerClasesApuntadas = new VerClasesApuntadas(this, datos_cliente);
 		panel = panelVerClasesApuntadas;
 		yo.setContentPane(panel);
 	}
@@ -207,7 +215,7 @@ public class VentanaCliente extends JFrame {
 	public void llamarApuntarse() {
 		limpiarContenido(panel);
 		limpiarContenido(panelApuntarse);
-		panelApuntarse = new ApuntarClase(this);
+		panelApuntarse = new ApuntarClase(this, datos_cliente);
 		panel = panelApuntarse;
 		yo.setContentPane(panel);
 	}
@@ -233,7 +241,7 @@ public class VentanaCliente extends JFrame {
 	public void llamarCambiarDatos() {
 		limpiarContenido(panel);
 		limpiarContenido(panelCambiarDatos);
-		panelCambiarDatos = new CambiarDatos(this);
+		panelCambiarDatos = new CambiarDatos(this, datos_cliente);
 		panel = panelCambiarDatos;
 		yo.setContentPane(panel);
 	}
@@ -282,5 +290,17 @@ public class VentanaCliente extends JFrame {
 	}
 	public void setFuenteAreas(Font fuente) {
 		this.fuenteAreas = fuente;
+	}
+
+
+
+	public static Cliente getDatos_cliente() {
+		return datos_cliente;
+	}
+
+
+
+	public static void setDatos_cliente(Cliente datos_cliente) {
+		VentanaCliente.datos_cliente = datos_cliente;
 	}
 }

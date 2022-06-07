@@ -1,12 +1,12 @@
 package controlador.objetos;
 
-public class Cliente {
+public class Cliente extends SuperClienteAdministrativo{
 	
 	//ATRIBUTOS:
-		private String dni;
+		//private String dni;
 		private String pasword; //tiene un default 'BIENVENIDO'
-		private String nombre;
-		private String apellidos;
+		//private String nombre;
+		//private String apellidos;
 		private int edad;
 		private boolean estado_empleo; //para la dbo es un char 'S'/'N'
 		private double cuota;
@@ -14,31 +14,32 @@ public class Cliente {
 		
 		
 		//CONSTRUCTORES:
-		public Cliente() {};
+		public Cliente() {super();};
 		
 		
 		public Cliente(String dni, String pasword, String nombre, String apellidos, int edad, boolean estado_empleo, double cuota) {
-			this.dni = dni;
+			super(dni, nombre, apellidos);
+			//super.setDni(dni);
 			this.pasword = pasword;
-			this.nombre = nombre;
-			this.apellidos = apellidos;
+			//super.setNombre(nombre);
+			//super.setApellidos(apellidos);
 			this.edad = edad;
 			this.estado_empleo = estado_empleo;
 			this.cuota = cuota;
 		}
 		
 		
-		public Cliente(String dni, String pasword) {
+		/*public Cliente(String dni, String pasword) {
 			this.dni = dni;
 			this.pasword = pasword;
-		}
+		}*/
 		
 		
 		
 		//METODOS:
 		@Override
 		public String toString() {
-			return "Nombre: " + nombre + ", apellidos: " + apellidos + ", dni: " + dni + ", pasword: " + pasword + ", edad: " + edad + ", es trabajador/desempleado -> " + estado_empleo + ", cuota: " + cuota + "€.";
+			return "Nombre: " + super.getNombre() + ", apellidos: " + super.getApellidos() + ", dni: " + super.getDni() + ", pasword: " + pasword + ", edad: " + edad + ", es trabajador/desempleado -> " + estado_empleo + ", cuota: " + cuota + "ï¿½.";
 		}
 		
 		
@@ -95,10 +96,10 @@ public class Cliente {
 		
 		//GET-SET:
 		public String getDni() {
-			return dni;
+			return super.getDni();
 		}
 		public void setDni(String dni) {
-			this.dni = dni;
+			super.setDni(dni);
 		}
 		public String getPasword() {
 			return pasword;
@@ -107,16 +108,16 @@ public class Cliente {
 			this.pasword = pasword;
 		}
 		public String getNombre() {
-			return nombre;
+			return super.getNombre();
 		}
 		public void setNombre(String nombre) {
-			this.nombre = nombre;
+			super.setNombre(nombre);
 		}
 		public String getApellidos() {
-			return apellidos;
+			return super.getApellidos();
 		}
 		public void setApellidos(String apellidos) {
-			this.apellidos = apellidos;
+			super.setApellidos(apellidos);
 		}
 		public int getEdad() {
 			return edad;

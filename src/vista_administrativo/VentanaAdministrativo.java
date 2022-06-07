@@ -16,6 +16,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import controlador.objetos.Administrativo;
+
 public class VentanaAdministrativo extends JFrame {
 
 	//ATRIBUTOS:
@@ -36,10 +38,11 @@ public class VentanaAdministrativo extends JFrame {
 	private PanelCliente panel_cliente = new PanelCliente(this);
 	private PanelProfesor panel_profesor = new PanelProfesor(this);
 	
-	public static final String DNI_EJEMPLO = "12345678D";
+	private static Administrativo datos_administrativo;
+	//public static final String DNI_EJEMPLO = "12345678D";
 	
 	//CONSTRUCTOR:
-	public VentanaAdministrativo() {
+	public VentanaAdministrativo(Administrativo administrativo) {
 		
 		try {
 			JFrame.setDefaultLookAndFeelDecorated(true);
@@ -68,9 +71,9 @@ public class VentanaAdministrativo extends JFrame {
 	
 	
 	//METODOS:
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		new VentanaAdministrativo();
-	}
+	}*/
 	
 	
 	private JMenuBar barraCliente() {

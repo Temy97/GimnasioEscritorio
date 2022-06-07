@@ -19,6 +19,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import controlador.objetos.Cliente;
 import modelo.GenerarXML;
 import modelo.SecuencialClasesApuntadas;
 import modelo.objetosDAO.ClaseDAO;
@@ -29,11 +30,13 @@ public class ApuntarClase extends JPanel {
 	//ATRIBUTOS:
 	public static final String[] CABECERA = {"Hora", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"};
 	public static final String[] HORAS = {"08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "", "16:00", "17:00", "18:00", "19:00", "20:00"};
+	private static Cliente datos_cliente;
 	
 	
 	//CONSTRUCTOR:
-	public ApuntarClase(JFrame ventana) {
+	public ApuntarClase(JFrame ventana, Cliente datos_cliente) {
 		this.setLayout(null);
+		this.datos_cliente = datos_cliente;
 		
 		JLabel n_clase = new JLabel("Nombre de la clase:");
 		n_clase.setFont(((VentanaCliente) ventana).getFuenteGeneral());
@@ -70,7 +73,7 @@ public class ApuntarClase extends JPanel {
 						JOptionPane.showMessageDialog(null, "Debe seleccionar una hora válida");
 					}else {
 						//if(comprobarNombre(n_text.getText()) == true) {
-							SecuencialClasesApuntadas.guardarClase(n_text.getText(), VentanaCliente.DNI_EJEMPLO, c_horas.getSelectedItem().toString());
+							SecuencialClasesApuntadas.guardarClase(n_text.getText(), datos_cliente.getDni(), c_horas.getSelectedItem().toString());
 						//}else {
 						//	JOptionPane.showMessageDialog(null, "La clase seleccionada no es válida,\nescriba o seleccioe una clase válida.");
 						//}
