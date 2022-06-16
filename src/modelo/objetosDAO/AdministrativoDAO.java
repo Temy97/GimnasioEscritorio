@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import controlador.objetos.Administrativo;
+import controlador.objetos.Cliente;
 import modelo.Singletone;
 
 public class AdministrativoDAO {
@@ -164,6 +165,34 @@ public class AdministrativoDAO {
 		}
 		
 		return admin;
+	}
+	
+	
+	/**
+	 * Se retorna un array con todos los
+	 * administrativos encontrados en la base de datos.
+	 * @return
+	 */
+	public static Administrativo[] todos_los_admins_array() {
+		Administrativo[] admins = null;
+		String consulta = "SELECT * FROM administrativo;";
+		
+		try {
+			PreparedStatement st = Singletone.getInstance().prepareStatement(consulta);
+			ResultSet rs = st.executeQuery();
+			admins = new Administrativo[rs.getFetchSize()];
+			
+			int posicion = 0;
+			while(rs.next()) {
+				admins[posicion] = new Administrativo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
+				posicion++;
+				
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return admins;
 	}
 	
 	

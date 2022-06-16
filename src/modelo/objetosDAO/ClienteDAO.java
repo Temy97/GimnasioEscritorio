@@ -3,9 +3,11 @@ package modelo.objetosDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
+import controlador.objetos.Administrativo;
 import controlador.objetos.Cliente;
 import modelo.Singletone;
 
@@ -128,6 +130,57 @@ public class ClienteDAO {
 		}
 		
 		return cliente;
+	}
+	
+	
+	/**
+	 * Se extraen los datos de todos los clientes
+	 * en forma de ArrayList.
+	 * @return ArrayList<Cliente>
+	 */
+	public static ArrayList<Cliente> todos_los_clientes() {
+		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+		
+		String consulta = "SELECT * FROM cliente;";
+		
+		try {
+			ResultSet rs = Singletone.getInstance().createStatement().executeQuery(consulta);
+			while(rs.next())
+				clientes.add(new Cliente(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), ((rs.getString(6) == "S")? true:false), rs.getDouble(7)));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return clientes;
+	}
+	
+	
+	/**
+	 * Se retorna un array con todos los
+	 * clientes encontrados en la base de datos.
+	 * @return
+	 */
+	public static Cliente[] todos_los_clientes_array() {
+		Cliente[] clientes = null;
+		String consulta = "SELECT * FROM cliente;";
+		
+		try {
+			PreparedStatement st = Singletone.getInstance().prepareStatement(consulta);
+			ResultSet rs = st.executeQuery();
+			clientes = new Cliente[rs.getFetchSize()];
+			
+			int posicion = 0;
+			while(rs.next()) {
+				clientes[posicion] = new Cliente(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), ((rs.getString(6) == "S")? true:false), rs.getDouble(7));
+				posicion++;
+				
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return clientes;
 	}
 	
 	

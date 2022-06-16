@@ -18,7 +18,7 @@ public class MainClass {
 	 * Actualiza la base de datos embebido orientada a objetos
 	 * con los datos extraidos de la base de datos SQL.
 	 */
-	private static void actualozarDBO() {
+	private static void actualizarDBO() {
 		
 	}
 	
