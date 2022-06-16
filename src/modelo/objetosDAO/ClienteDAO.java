@@ -162,22 +162,11 @@ public class ClienteDAO {
 	 * @return
 	 */
 	public static Cliente[] todos_los_clientes_array() {
-		Cliente[] clientes = null;
-		String consulta = "SELECT * FROM cliente;";
+		ArrayList<Cliente> clientesList = todos_los_clientes();
+		Cliente[] clientes = new Cliente[clientesList.size()];
 		
-		try {
-			PreparedStatement st = Singletone.getInstance().prepareStatement(consulta);
-			ResultSet rs = st.executeQuery();
-			clientes = new Cliente[rs.getFetchSize()];
-			
-			int posicion = 0;
-			while(rs.next()) {
-				clientes[posicion] = new Cliente(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), ((rs.getString(6) == "S")? true:false), rs.getDouble(7));
-				posicion++;
-				
-			}
-		} catch(SQLException e) {
-			e.printStackTrace();
+		for (int i = 0; i < clientes.length; i++) {
+			clientes[i] = clientesList.get(i);
 		}
 		
 		return clientes;

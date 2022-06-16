@@ -174,22 +174,11 @@ public class AdministrativoDAO {
 	 * @return
 	 */
 	public static Administrativo[] todos_los_admins_array() {
-		Administrativo[] admins = null;
-		String consulta = "SELECT * FROM administrativo;";
+		ArrayList<Administrativo> adminsList = todos_los_admins();
+		Administrativo[] admins = new Administrativo[adminsList.size()];
 		
-		try {
-			PreparedStatement st = Singletone.getInstance().prepareStatement(consulta);
-			ResultSet rs = st.executeQuery();
-			admins = new Administrativo[rs.getFetchSize()];
-			
-			int posicion = 0;
-			while(rs.next()) {
-				admins[posicion] = new Administrativo(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
-				posicion++;
-				
-			}
-		} catch(SQLException e) {
-			e.printStackTrace();
+		for (int i = 0; i < admins.length; i++) {
+			admins[i] = adminsList.get(i);
 		}
 		
 		return admins;
