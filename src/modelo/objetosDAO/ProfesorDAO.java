@@ -86,8 +86,7 @@ public class ProfesorDAO {
 			profesor = new Profesor(dni, rs.getString(2), rs.getDouble(3));
 			
 		} catch (SQLException e) {
-			//e.printStackTrace();
-			profesor = null;
+			e.printStackTrace();
 		}
 		
 		return profesor;

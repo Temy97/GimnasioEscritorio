@@ -231,18 +231,6 @@ public class VentanaAdministrativo extends JFrame {
 	
 	
 	/**
-	 * Provoca que la ventana muestre el JPanel correspondiente.
-	 */
-	public void llamarPanelProfesor(String dni) {
-		limpiarContenido(panel);
-		limpiarContenido(panel_profesor);
-		panel_profesor = new PanelProfesor(this, dni);
-		panel = panel_profesor;
-		yo.setContentPane(panel);
-	}
-	
-	
-	/**
 	 * Limpia y revalida el componente que
 	 * recibe por parametro.
 	 * @param contenido

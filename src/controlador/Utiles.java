@@ -42,9 +42,6 @@ public class Utiles {
 		if(dni.length() == 9 && Pattern.matches("\\d{8}[A-Z]{1}", dni)) {
 			valido = true;
 		}
-		if(dni.length() == 9 && Pattern.matches("\\d{8}[a-z]{1}", dni)) {
-			valido = true;
-		}
 		
 		return valido;
 	}
