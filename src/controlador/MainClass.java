@@ -24,11 +24,11 @@ public class MainClass {
 	
 	
 	/**
-	 * Actualiza la base de datos embebido orientada a objetos
+	 * Actualiza la base de datos embebida orientada a objetos
 	 * con los datos extraidos de la base de datos SQL.
 	 */
 	private static void actualizarDBO() {
-		File ficheroDB = new File("datos\\db_login.db");
+		File ficheroDB = new File("datos\\db_login.DB");//si el archivo que creamos usamos la extension '.db' en minusculas en vez de mayusculas ('.DB') se generan archivos adicionales
 		ficheroDB.delete();
 		ODB dbo = ODBFactory.open(ficheroDB.getPath());
 		
@@ -72,7 +72,7 @@ public class MainClass {
 	 * Se llama a la clase con la interfaz grafica
 	 * referida al Log-In, para que se loguee el clilente
 	 * o administrativo, se retorna un booleano equivalente
-	 * a -> {@code true} == cliente // {@code false} == administrativo.
+	 * a: -> {@code true} == cliente // {@code false} == administrativo.
 	 * @return
 	 */
 	private static boolean llamarLogIn() {
