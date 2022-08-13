@@ -93,6 +93,8 @@ public class VistaLogIn extends JFrame{
 								NeodatisDAO.BASE_DATOS.close();
 								new VentanaAdministrativo((Administrativo) objeto);
 							}
+						}else {
+							JOptionPane.showMessageDialog(null, "No hubo coincidencia de datos,\ncompruebe el nombre y/o la contraseña.", "", JOptionPane.INFORMATION_MESSAGE, null);
 						}
 					}
 				}
