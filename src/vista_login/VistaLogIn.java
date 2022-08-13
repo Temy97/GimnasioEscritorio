@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import modelo.objetosDAO.NeodatisDAO;
+
 @SuppressWarnings("serial")
 public class VistaLogIn extends JFrame{
 	
@@ -60,7 +62,28 @@ public class VistaLogIn extends JFrame{
 						
 					}
 				}
+				
 				//comprobar db
+				Object objeto = null;
+				boolean encontrado = false;
+				
+				for (int i = 0; i < NeodatisDAO.listaClientes().size(); i++) {
+					if(NeodatisDAO.listaClientes().get(i).getNombre().equals(txtNombre.getText())
+							&& NeodatisDAO.listaClientes().get(i).getPasword().equals(txtPasword.getPassword().toString())){
+						objeto = NeodatisDAO.listaClientes().get(i);
+						encontrado = true;
+					}
+				}
+				if(encontrado == false) {
+					for (int i = 0; i < NeodatisDAO.listaAdministrativos().size(); i++) {
+						if(NeodatisDAO.listaAdministrativos().get(i).getNombre().equals(txtNombre.getText())
+								&& NeodatisDAO.listaAdministrativos().get(i).getPasword().equals(txtPasword.getPassword().toString())){
+							objeto = NeodatisDAO.listaAdministrativos().get(i);
+							encontrado = true;
+						}
+					}
+				}
+				
 				//lanzar objeto
 			}
 		});
