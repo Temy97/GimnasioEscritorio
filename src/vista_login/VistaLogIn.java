@@ -13,7 +13,11 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import controlador.objetos.Administrativo;
+import controlador.objetos.Cliente;
 import modelo.objetosDAO.NeodatisDAO;
+import vista_administrativo.VentanaAdministrativo;
+import vista_cliente.VentanaCliente;
 
 @SuppressWarnings("serial")
 public class VistaLogIn extends JFrame{
@@ -52,39 +56,46 @@ public class VistaLogIn extends JFrame{
 		botonAceptar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//comprobar escrito
 				if(txtNombre.getText().length() == 0) {
 					JOptionPane.showMessageDialog(null, "Nombre erroneo", "", JOptionPane.ERROR_MESSAGE, null);
 				}else {
 					if(txtPasword.getPassword().length == 0) {
 						JOptionPane.showMessageDialog(null, "Contraseña erronea", "", JOptionPane.ERROR_MESSAGE, null);
+					
 					}else {
 						
-					}
-				}
-				
-				//comprobar db
-				Object objeto = null;
-				boolean encontrado = false;
-				
-				for (int i = 0; i < NeodatisDAO.listaClientes().size(); i++) {
-					if(NeodatisDAO.listaClientes().get(i).getNombre().equals(txtNombre.getText())
-							&& NeodatisDAO.listaClientes().get(i).getPasword().equals(txtPasword.getPassword().toString())){
-						objeto = NeodatisDAO.listaClientes().get(i);
-						encontrado = true;
-					}
-				}
-				if(encontrado == false) {
-					for (int i = 0; i < NeodatisDAO.listaAdministrativos().size(); i++) {
-						if(NeodatisDAO.listaAdministrativos().get(i).getNombre().equals(txtNombre.getText())
-								&& NeodatisDAO.listaAdministrativos().get(i).getPasword().equals(txtPasword.getPassword().toString())){
-							objeto = NeodatisDAO.listaAdministrativos().get(i);
-							encontrado = true;
+						Object objeto = null;
+						boolean encontrado = false;
+						
+						for (int i = 0; i < NeodatisDAO.listaClientes().size(); i++) {
+							if(NeodatisDAO.listaClientes().get(i).getNombre().equals(txtNombre.getText())
+									&& NeodatisDAO.listaClientes().get(i).getPasword().equals(String.valueOf(txtPasword.getPassword()))){
+								objeto = NeodatisDAO.listaClientes().get(i);
+								encontrado = true;
+							}
+						}
+						if(encontrado == false) {
+							for (int i = 0; i < NeodatisDAO.listaAdministrativos().size(); i++) {
+								if(NeodatisDAO.listaAdministrativos().get(i).getNombre().equals(txtNombre.getText())
+										&& NeodatisDAO.listaAdministrativos().get(i).getPasword().equals(String.valueOf(txtPasword.getPassword()))){
+									objeto = NeodatisDAO.listaAdministrativos().get(i);
+									encontrado = true;
+								}
+							}
+						}
+						
+						if(encontrado == true) {
+							if(objeto instanceof Cliente) {
+								NeodatisDAO.BASE_DATOS.close();
+								VentanaCliente.setDatos_cliente((Cliente) objeto);
+								new VentanaCliente((Cliente) objeto);
+							}else if(objeto instanceof Administrativo) {
+								NeodatisDAO.BASE_DATOS.close();
+								new VentanaAdministrativo((Administrativo) objeto);
+							}
 						}
 					}
 				}
-				
-				//lanzar objeto
 			}
 		});
 		botonSalir = new JButton("Salir");
@@ -92,6 +103,7 @@ public class VistaLogIn extends JFrame{
 		botonSalir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				NeodatisDAO.BASE_DATOS.close();
 				System.exit(0);
 			}
 		});
@@ -111,9 +123,9 @@ public class VistaLogIn extends JFrame{
 	
 	
 	//METODOS:
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		new VistaLogIn();
-	}
+	}*/
 	
 	
 	/*public static boolean vistaLogIn() {

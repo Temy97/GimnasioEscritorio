@@ -20,7 +20,7 @@ public class CambiarDatos extends JPanel {
 	
 	//ATRIBUTOS:
 	private boolean asteriscos = false;
-	private Cliente cliente = ClienteDAO.buscar_dni(datos_cliente.getDni());
+	private Cliente cliente;
 	//private Ventana ventana;
 	private static Cliente datos_cliente;
 	

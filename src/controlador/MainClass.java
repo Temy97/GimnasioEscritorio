@@ -3,6 +3,7 @@ package controlador;
 import controlador.objetos.SuperClienteAdministrativo;
 import modelo.objetosDAO.AdministrativoDAO;
 import modelo.objetosDAO.ClienteDAO;
+import modelo.objetosDAO.NeodatisDAO;
 import controlador.objetos.Cliente;
 
 import java.io.File;
@@ -14,12 +15,14 @@ import org.neodatis.odb.Objects;
 import controlador.objetos.Administrativo;
 import vista_administrativo.VentanaAdministrativo;
 import vista_cliente.VentanaCliente;
+import vista_login.VistaLogIn;
 
 public class MainClass {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		actualizarDBO();
+		new VistaLogIn();
 	}
 	
 	
@@ -30,7 +33,7 @@ public class MainClass {
 	private static void actualizarDBO() {
 		File ficheroDB = new File("datos\\db_login.DB");//si el archivo que creamos usamos la extension '.db' en minusculas en vez de mayusculas ('.DB') se generan archivos adicionales
 		ficheroDB.delete();
-		ODB dbo = ODBFactory.open(ficheroDB.getPath());
+		ODB dbo = NeodatisDAO.BASE_DATOS;
 		
 		Cliente[] clientes = ClienteDAO.todos_los_clientes_array();
 		Administrativo[] administrativos = AdministrativoDAO.todos_los_admins_array();
@@ -42,8 +45,8 @@ public class MainClass {
 			dbo.store(administrativos[i]);
 		}
 		
-		comprobarDBO(dbo);
-		dbo.close();
+		//comprobarDBO(dbo);
+		//dbo.close();
 	}
 	
 	

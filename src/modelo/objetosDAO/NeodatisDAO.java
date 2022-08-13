@@ -10,6 +10,8 @@ import controlador.objetos.Administrativo;
 import controlador.objetos.Cliente;
 
 public class NeodatisDAO {
+	//ATRIBUTOS:
+	public static final ODB BASE_DATOS = ODBFactory.open("datos\\db_login.DB");
 	
 	//METODOS:
 	/**
@@ -20,8 +22,7 @@ public class NeodatisDAO {
 	public static ArrayList<Cliente> listaClientes(){
 		ArrayList<Cliente> array_clientes = new ArrayList<Cliente>();
 		
-		ODB base_datos = ODBFactory.open("datos\\dn_login.DB");
-		Objects<Cliente> clientes = base_datos.getObjects(Cliente.class);
+		Objects<Cliente> clientes = BASE_DATOS.getObjects(Cliente.class);
 		
 		while(clientes.hasNext()) {
 			array_clientes.add((Cliente) clientes.next());
@@ -39,8 +40,7 @@ public class NeodatisDAO {
 	public static ArrayList<Administrativo> listaAdministrativos(){
 		ArrayList<Administrativo> array_administrativos = new ArrayList<Administrativo>();
 		
-		ODB base_datos = ODBFactory.open("datos\\dn_login.DB");
-		Objects<Administrativo> administrativo = base_datos.getObjects(Administrativo.class);
+		Objects<Administrativo> administrativo = BASE_DATOS.getObjects(Administrativo.class);
 		
 		while(administrativo.hasNext()) {
 			array_administrativos.add((Administrativo) administrativo.next());
