@@ -1,0 +1,51 @@
+﻿<?xml version="1.0"?>
+<GimnasioEscritorio>
+  <datos>archivos de informacion para el usuario</datos>
+  <img>imagenes de la aplicación</img>
+  <informacion_extra>carpeta con imagenes conceptuales de la aplicacion y archivos con la base de datos sql</informacion_extra>
+  <lib>librerias sql_server y neodatis</lib>
+  <src>
+      <controlador>
+          <objetos>
+              Administrativo.java
+              Clase.java
+              Cliente.java
+              Profesor.java
+              SuperClienteAdministrativo.java
+          </objetos>
+          MainClass.java
+          Utiles.java
+      </controlador>
+      <modelo>
+          <objetosDAO>
+              AdministrativoDAO.java
+              ClaseDAO.java
+              ClienteDAO.java
+              NeodatisDAO.java
+              Profesor.java
+          </objetosDAO>
+          GenerarArchivoSecuencial.java
+          GenerarXML.java
+          SecuencialClasesApuntadas.java
+          Singletone.java
+      </modelo>
+      <vista_administrativo>
+          PanelAdministrativo.java
+          PanelClase.java
+          PanelCliente.java
+          PanelProfesor.java
+          VentaAdministrativo.java
+      </vista_administrativo>
+      <vista_cliente>
+          ApuntarClase.java
+          CambiarDatos.java
+          Opciones.java
+          VentaCliente.java
+          VerClases.java
+          VerClasesApuntadas.java
+      </vista_cliente>
+      <vista_login>
+          VistaLogIn.java
+      </vista_login>
+  </src>
+</GimnasioEscritorio>
