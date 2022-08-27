@@ -92,6 +92,7 @@ public class VistaLogIn extends JFrame{
 							}else if(objeto instanceof Administrativo) {
 								NeodatisDAO.BASE_DATOS.close();
 								new VentanaAdministrativo((Administrativo) objeto);
+								visibilidadLogIn(false);
 							}
 						}else {
 							JOptionPane.showMessageDialog(null, "No hubo coincidencia de datos,\ncompruebe el nombre y/o la contraseña.", "", JOptionPane.INFORMATION_MESSAGE, null);
@@ -120,7 +121,12 @@ public class VistaLogIn extends JFrame{
 		this.setContentPane(panel);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setVisible(true);
+		visibilidadLogIn(true);
+	}
+
+
+	private void visibilidadLogIn(boolean visibilidad) {
+		this.setVisible(visibilidad);
 	}
 	
 	
