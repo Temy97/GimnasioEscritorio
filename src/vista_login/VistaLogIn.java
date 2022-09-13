@@ -89,6 +89,8 @@ public class VistaLogIn extends JFrame{
 								NeodatisDAO.BASE_DATOS.close();
 								VentanaCliente.setDatos_cliente((Cliente) objeto);
 								new VentanaCliente((Cliente) objeto);
+								visibilidadLogIn(false);
+								
 							}else if(objeto instanceof Administrativo) {
 								NeodatisDAO.BASE_DATOS.close();
 								new VentanaAdministrativo((Administrativo) objeto);
