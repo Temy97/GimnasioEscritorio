@@ -62,9 +62,9 @@ public class PanelProfesor extends JPanel {
 				}
 				
 				colocarScroll();
-				dni_txt.setText("");
+				/*dni_txt.setText("");
 				nombre_txt.setText("");
-				salario_txt.setText("");
+				salario_txt.setText("");*/
 			}
 		});
 		JButton nuevo = new JButton("Crear nuevo");
@@ -80,7 +80,7 @@ public class PanelProfesor extends JPanel {
 		this.add(salario);
 		this.add(salario_txt);
 		
-		this.add(scroll);
+		//this.add(scroll);
 		
 		this.add(buscar);
 		this.add(nuevo);
