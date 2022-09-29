@@ -1,0 +1,5 @@
+SELECT * FROM administrativo;
+
+SELECT * FROM cliente;
+
+UPDATE cliente SET cuota = 42 WHERE nombre LIKE 'Naomi';

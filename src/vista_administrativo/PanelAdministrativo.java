@@ -58,7 +58,7 @@ public class PanelAdministrativo extends JPanel {
 	
 	
 	/**
-	 * Cosntructor que genera el panel con los campos rrellenos
+	 * Cosntructor que genera el panel con los campos rellenos
 	 * segun el nombre y/o apellido especificado.
 	 * @param ventana
 	 * @param nombre
@@ -73,6 +73,12 @@ public class PanelAdministrativo extends JPanel {
 	}
 	
 	
+	/**
+	 * Metodo interno que pinta y ubica cada
+	 * componente del panel.
+	 * @param ventana
+	 * @param panelAdministrativo
+	 */
 	private void rellenar(JFrame ventana, PanelAdministrativo panelAdministrativo) {
 		JLabel dni = new JLabel("DNI:");
 		dni.setBounds(50, 50, 80, 30);
@@ -152,7 +158,7 @@ public class PanelAdministrativo extends JPanel {
 						if(AdministrativoDAO.borrar_admin_por_dni(administrativo.getDni())){
 							JOptionPane.showMessageDialog(null, "El adminnistrativo ha sido eliminado exitosamente.", "", JOptionPane.INFORMATION_MESSAGE, null);
 						}else {
-							JOptionPane.showMessageDialog(null, "Se ha producido n error al borrar al administrativo.", "", JOptionPane.WARNING_MESSAGE, null);
+							JOptionPane.showMessageDialog(null, "Se ha producido un error al borrar al administrativo.", "", JOptionPane.WARNING_MESSAGE, null);
 						}
 					}
 					
