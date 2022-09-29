@@ -3,7 +3,9 @@ package modelo.objetosDAO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import controlador.objetos.Administrativo;
 import controlador.objetos.Profesor;
 import modelo.Singletone;
 
@@ -89,6 +91,28 @@ public class ProfesorDAO {
 			e.printStackTrace();
 		}
 		
+		return profesor;
+	}
+	
+	/**
+	 * Se devuelve un ArrayList con todos los
+	 * profesores de la base de datos.
+	 * @return ArrayList<Profesor>
+	 */
+	public static ArrayList<Profesor> todos_los_profesores(){
+		ArrayList<Profesor> profesor = new ArrayList<Profesor>();
+
+		String consulta = "SELECT * FROM profesor;";
+
+		try {
+			ResultSet rs = Singletone.getInstance().createStatement().executeQuery(consulta);
+			while(rs.next())
+				profesor.add(new Profesor(rs.getString(1), rs.getString(2), rs.getDouble(3)));
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 		return profesor;
 	}
 	
