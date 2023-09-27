@@ -145,6 +145,7 @@ public class VentanaAdministrativo extends JFrame {
 	}
 	
 	
+	//--panel de inicio
 	/**
 	 * Provoca que la ventana muestre el JPanel
 	 * correspondiente al atributo 'inicio'.
@@ -156,6 +157,7 @@ public class VentanaAdministrativo extends JFrame {
 	}
 	
 	
+	//--paneles de administrativo
 	/**
 	 * Provoca que la ventana muestre el JPanel correspondiente.
 	 */
@@ -194,6 +196,7 @@ public class VentanaAdministrativo extends JFrame {
 	}
 	
 	
+	//--paneles de clases
 	/**
 	 * Provoca que la ventana muestre el JPanel correspondiente.
 	 */
@@ -206,6 +209,7 @@ public class VentanaAdministrativo extends JFrame {
 	}
 	
 	
+	//--paneles de clientes
 	/**
 	 * Provoca que la ventana muestre el JPanel correspondiente.
 	 */
@@ -218,6 +222,7 @@ public class VentanaAdministrativo extends JFrame {
 	}
 	
 	
+	//--paneles de profesores
 	/**
 	 * Provoca que la ventana muestre el JPanel correspondiente.
 	 */
@@ -230,6 +235,33 @@ public class VentanaAdministrativo extends JFrame {
 	}
 	
 	
+	/**
+	 * Provoca que la ventana muestre el JPanel correspondiente,
+	 * con la tabla editada por dni.
+	 */
+	public void llamarPanelProfesor(String dni) {
+		limpiarContenido(panel);
+		limpiarContenido(panel_profesor);
+		panel_profesor = new PanelProfesor(this, dni);
+		panel = panel_profesor;
+		yo.setContentPane(panel);
+	}
+	
+	
+	/**
+	 * Provoca que la ventana muestre el JPanel correspondiente,
+	 * con la tabla editada por nombre.
+	 */
+	public void llamarPanelProfesor(String nombre, String apellido) {
+		limpiarContenido(panel);
+		limpiarContenido(panel_profesor);
+		panel_profesor = new PanelProfesor(this, nombre, apellido);
+		panel = panel_profesor;
+		yo.setContentPane(panel);
+	}
+	
+	
+	//--otros:
 	/**
 	 * Limpia y revalida el componente que
 	 * recibe por parametro.

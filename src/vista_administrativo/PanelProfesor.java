@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import controlador.Utiles;
 import controlador.objetos.Administrativo;
 import controlador.objetos.Profesor;
 import modelo.objetosDAO.ProfesorDAO;
@@ -30,9 +31,55 @@ public class PanelProfesor extends JPanel {
 	
 	
 	//CONSTRUCTOR:
+	/**
+	 * Constructor por defecto.
+	 * @param ventana
+	 */
 	public PanelProfesor(JFrame ventana) {
 		this.setLayout(null);
 		
+		rellenar(ventana, this);
+	}
+	
+	
+	/**
+	 * Constructor que genera el panel con los campos rellenos
+	 * segun el dni especificado.
+	 * @param ventana
+	 * @param dni
+	 */
+	public PanelProfesor(JFrame ventana, String dni) {
+		this.setLayout(null);
+		
+		scroll = new JScrollPane(crearTabla(dni, ""));
+		
+		rellenar(ventana, this);
+	}
+	
+	
+	/**
+	 * Cosntructor que genera el panel con los campos rellenos
+	 * segun el nombre y/o apellido especificado.
+	 * @param ventana
+	 * @param nombre
+	 * @param apellido
+	 */
+	public PanelProfesor(JFrame ventana, String nombre, String apellido) {
+		this.setLayout(null);
+		
+		scroll = new JScrollPane(crearTabla("", nombre));
+		
+		rellenar(ventana, this);
+	}
+	
+	
+	/**
+	 * Metodo interno que pinta y ubica cada
+	 * componente del panel.
+	 * @param ventana
+	 * @param panelProfesor
+	 */
+	private void rellenar(JFrame ventana, PanelProfesor panelProfesor) {
 		JLabel dni = new JLabel("DNI:");
 		dni.setBounds(50, 50, 80, 30);
 		JTextField dni_txt = new JTextField();
@@ -55,21 +102,42 @@ public class PanelProfesor extends JPanel {
 		buscar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(dni_txt.getText().isBlank() == false && dni_txt.getText().length() == 9) {
-					scroll = new JScrollPane(crearTabla(dni_txt.getText(), ""));
-				}else if(nombre_txt.getText().isBlank() == false) {
-					scroll = new JScrollPane(crearTabla("", nombre_txt.getText()));
+				if(!dni_txt.getText().isBlank() || !nombre_txt.getText().isBlank()) {
+					if(dni_txt.getText().length() == 9) {
+						((VentanaAdministrativo) ventana).llamarPanelProfesor(dni_txt.getText());
+					} else {
+						((VentanaAdministrativo) ventana).llamarPanelProfesor(nombre_txt.getText(), "");
+					}
+					
+					scroll  = new JScrollPane(crearTabla(dni_txt.getText(), nombre_txt.getText()));
+					colocarScroll();
 				}
-				
-				colocarScroll();
-				/*dni_txt.setText("");
-				nombre_txt.setText("");
-				salario_txt.setText("");*/
 			}
 		});
+		
 		JButton nuevo = new JButton("Crear nuevo");
 		nuevo.setBounds(150, 300, 120, 40);
-		JButton borrar = new JButton("Borrar");
+		nuevo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!dni_txt.getText().isBlank() || !nombre_txt.getText().isBlank() || !salario_txt.getText().isBlank()) {
+					try {
+						if (!Utiles.comprobar_dni_sin_coincidencia(dni_txt.getText())) {
+							JOptionPane.showMessageDialog(null, "El dni es inválido.", "", JOptionPane.INFORMATION_MESSAGE, null);
+						} else {
+							Double salario = Double.parseDouble(salario_txt.getText());
+							profesor = new Profesor(dni_txt.getText(), nombre_txt.getText(), salario);
+							ProfesorDAO.insert_profesor(profesor);
+						}
+						
+					}catch(NumberFormatException e2) {
+						JOptionPane.showMessageDialog(null, "El salario introducido es erroneo.", "", JOptionPane.INFORMATION_MESSAGE, null);
+					}
+				}
+			}
+		});
+		
+		JButton borrar = new JButton("Borrar");//TODO hacer mensaje error para seleccion de tabla en null o vacio
 		borrar.setBounds(760, 300, 120, 40);
 		
 		
@@ -80,7 +148,7 @@ public class PanelProfesor extends JPanel {
 		this.add(salario);
 		this.add(salario_txt);
 		
-		//this.add(scroll);
+		colocarScroll();
 		
 		this.add(buscar);
 		this.add(nuevo);
@@ -107,23 +175,28 @@ public class PanelProfesor extends JPanel {
 			}
 		}
 		
+		int cont = 0;
+		
 		//recorrer array, si coincide dni solo una tupla en la tabla,
 		//si se busca por nombre se muestran todas las coincidencias.
 		for (int i = 0; i < profesores.size(); i++) {
 			if(dni.length() == 9 && dni.equalsIgnoreCase(profesores.get(i).getDni())) {
 				tuplas = new String[1][CABECERA.length];
 
-				tuplas[0][0] = profesores.get(i).getDni();
-				tuplas[0][1] = profesores.get(i).getNombre();
-				tuplas[0][2] = Double.toString(profesores.get(i).getSalario());
+				tuplas[cont][0] = profesores.get(i).getDni();
+				tuplas[cont][1] = profesores.get(i).getNombre();
+				tuplas[cont][2] = Double.toString(profesores.get(i).getSalario());
 
-				i = profesores.size() +1;
+				//i = profesores.size() +1;
+				cont++;
 
 			}else if(nombre.isBlank() == false){
 				if(nombre.equalsIgnoreCase(profesores.get(i).getNombre())) {
-					tuplas[i][0] = profesores.get(i).getDni();
-					tuplas[i][1] = profesores.get(i).getNombre();
-					tuplas[i][2] = Double.toString(profesores.get(i).getSalario());
+					tuplas[cont][0] = profesores.get(i).getDni();
+					tuplas[cont][1] = profesores.get(i).getNombre();
+					tuplas[cont][2] = Double.toString(profesores.get(i).getSalario());
+					
+					cont++;
 				}
 			}
 		}
@@ -137,7 +210,7 @@ public class PanelProfesor extends JPanel {
 				try {
 					profesor = new Profesor(tabla.getValueAt(row, 0).toString(), tabla.getValueAt(row, 1).toString(), Double.parseDouble(tabla.getValueAt(row, 2).toString()));
 				
-				}catch(NullPointerException e) {
+				}catch(NullPointerException | NumberFormatException e) {
 					profesor = new Profesor("", "", 0.0);
 				}
 			}
