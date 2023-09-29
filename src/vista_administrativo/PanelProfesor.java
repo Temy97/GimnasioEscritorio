@@ -25,6 +25,7 @@ public class PanelProfesor extends JPanel {
 	
 	//Atributos:
 	private static final String[] CABECERA = {"DNI", "Nombre", "Salario"};
+	private final String[] opciones = {"Sí", "No"};
 	private static JScrollPane scroll = new JScrollPane(crearTabla("", ""));
 	private PanelProfesor yo = this;
 	private static Profesor profesor= new Profesor("", "", 0.0);
@@ -128,6 +129,8 @@ public class PanelProfesor extends JPanel {
 							Double salario = Double.parseDouble(salario_txt.getText());
 							profesor = new Profesor(dni_txt.getText(), nombre_txt.getText(), salario);
 							ProfesorDAO.insert_profesor(profesor);
+							
+							JOptionPane.showMessageDialog(null, "El profesor [" + profesor.getNombre() + ", " + profesor.getDni() + "] ha sido añadido", "", JOptionPane.PLAIN_MESSAGE, null);
 						}
 						
 					}catch(NumberFormatException e2) {
@@ -139,6 +142,22 @@ public class PanelProfesor extends JPanel {
 		
 		JButton borrar = new JButton("Borrar");//TODO hacer mensaje error para seleccion de tabla en null o vacio
 		borrar.setBounds(760, 300, 120, 40);
+		borrar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!profesor.getDni().isBlank()) {
+					if(JOptionPane.showOptionDialog(null, "Realmente desea borrar a: " + profesor.getNombre() + " [dni: " + profesor.getDni() + "]", "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[0]) == 0) {
+						if(ProfesorDAO.borrar_profesor(profesor.getDni())) {
+							JOptionPane.showMessageDialog(null, "El profesor ha sido eliminado exitosamente.", "", JOptionPane.INFORMATION_MESSAGE, null);
+						}else {
+							JOptionPane.showMessageDialog(null, "Se ha producido un error al borrar al profesor.", "", JOptionPane.WARNING_MESSAGE, null);
+						}
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "No hay ningun profesor seleccionado correctamente.", "", JOptionPane.ERROR_MESSAGE, null);
+				}
+			}
+		});
 		
 		
 		this.add(dni);
