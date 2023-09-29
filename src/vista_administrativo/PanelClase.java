@@ -15,6 +15,7 @@ import vista_cliente.VentanaCliente;
 
 public class PanelClase extends JPanel {
 	
+	//CONSTRUCTOR:
 	public PanelClase(JFrame ventana) {
 		this.setLayout(null);
 		
@@ -46,8 +47,7 @@ public class PanelClase extends JPanel {
 		
 		JLabel area_desc = new JLabel("Descripción de la clase seleccionada:");
 		area_desc.setBounds(605, 20, 220, 30);
-		JTextArea area_descripcion = new JTextArea();//TODO cambiar por jtextArea en el que aparezca la descripcion de la clase seleccionada en la tabla de la izquierda
-		//JScrollPane scroll_profes = new JScrollPane(area_descripcion);
+		JTextArea area_descripcion = new JTextArea();//cambiar por jtextArea en el que aparezca la descripcion de la clase seleccionada en la tabla de la izquierda
 		area_descripcion.setBounds(600, 50, 350, 200);
 		area_descripcion.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		area_descripcion.setEditable(false);
