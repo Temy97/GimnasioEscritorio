@@ -15,6 +15,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import controlador.objetos.Administrativo;
 
@@ -209,6 +210,21 @@ public class VentanaAdministrativo extends JFrame {
 	}
 	
 	
+	/**
+	 * Provoca que la ventana muestre el JPanel correspondiente,
+	 * con la tabla mostrando las coincidencias con el id de
+	 * las clases recibido.
+	 * @param id_txt
+	 */
+	public void llamarPanelClases(String id) {
+		limpiarContenido(panel);
+		limpiarContenido(panel_clase);
+		panel_clase = new PanelClase(this, id);
+		panel = panel_clase;
+		yo.setContentPane(panel);
+	}
+	
+	
 	//--paneles de clientes
 	/**
 	 * Provoca que la ventana muestre el JPanel correspondiente.
@@ -272,4 +288,5 @@ public class VentanaAdministrativo extends JFrame {
 		contenido.revalidate();
 		contenido.repaint();
 	}
+
 }

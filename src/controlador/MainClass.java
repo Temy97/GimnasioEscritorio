@@ -2,6 +2,7 @@ package controlador;
 
 import controlador.objetos.SuperClienteAdministrativo;
 import modelo.objetosDAO.AdministrativoDAO;
+import modelo.objetosDAO.ClaseDAO;
 import modelo.objetosDAO.ClienteDAO;
 import modelo.objetosDAO.NeodatisDAO;
 import controlador.objetos.Cliente;
