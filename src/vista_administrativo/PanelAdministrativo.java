@@ -215,7 +215,7 @@ public class PanelAdministrativo extends JPanel {
 				tuplas = new String[admins.size()][cabecera.length];
 				
 				tuplas[0][0] = admins.get(i).getDni();
-				tuplas[0][1] = admins.get(i).getPasword();
+				tuplas[0][1] = admins.get(i).getPaswordAsterisco();
 				tuplas[0][2] = admins.get(i).getNombre();
 				tuplas[0][3] = admins.get(i).getApellidos();
 				
@@ -225,7 +225,7 @@ public class PanelAdministrativo extends JPanel {
 				if(nombre.isBlank() == false && apellido.isBlank() == false) {
 					if(nombre.equalsIgnoreCase(admins.get(i).getNombre()) && apellido.equalsIgnoreCase(admins.get(i).getApellidos())) {
 						tuplas[cont][0] = admins.get(i).getDni();
-						tuplas[cont][1] = admins.get(i).getPasword();
+						tuplas[cont][1] = admins.get(i).getPaswordAsterisco();
 						tuplas[cont][2] = admins.get(i).getNombre();
 						tuplas[cont][3] = admins.get(i).getApellidos();
 						
@@ -234,7 +234,7 @@ public class PanelAdministrativo extends JPanel {
 				}else if(nombre.isBlank() == false && apellido.isBlank() == true) {
 					if(nombre.equalsIgnoreCase(admins.get(i).getNombre())) {
 						tuplas[cont][0] = admins.get(i).getDni();
-						tuplas[cont][1] = admins.get(i).getPasword();
+						tuplas[cont][1] = admins.get(i).getPaswordAsterisco();
 						tuplas[cont][2] = admins.get(i).getNombre();
 						tuplas[cont][3] = admins.get(i).getApellidos();
 						
@@ -243,7 +243,7 @@ public class PanelAdministrativo extends JPanel {
 				}else if(nombre.isBlank() == true && apellido.isBlank() == false) {
 					if(apellido.equalsIgnoreCase(admins.get(i).getApellidos())) {
 						tuplas[cont][0] = admins.get(i).getDni();
-						tuplas[cont][1] = admins.get(i).getPasword();
+						tuplas[cont][1] = admins.get(i).getPaswordAsterisco();
 						tuplas[cont][2] = admins.get(i).getNombre();
 						tuplas[cont][3] = admins.get(i).getApellidos();
 						

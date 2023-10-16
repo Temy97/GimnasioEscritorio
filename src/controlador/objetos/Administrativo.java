@@ -36,6 +36,19 @@ public class Administrativo extends SuperClienteAdministrativo{
 	}
 	
 	
+	/**
+	 * Devuleve el pasword del administrativo
+	 * convertido en cadena de asteriscos.
+	 * @return
+	 */
+	public String getPaswordAsterisco() {
+		/*System.out.println("holiwi");
+		System.out.println("holiwi".replaceAll(".", "*"));
+		System.out.println("*".repeat("holiwi".length()));*/
+		return this.pasword.replaceAll(".", "*");
+	}
+	
+	
 	
 	//GET-SET:
 	public String getDni() {
