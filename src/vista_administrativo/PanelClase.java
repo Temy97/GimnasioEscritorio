@@ -28,6 +28,7 @@ public class PanelClase extends JPanel {
 		private JScrollPane scroll = new JScrollPane(crearTabla("", "", ""));
 		private PanelClase yo = this;
 		private Clase clase = new Clase("   ", "", "", "");
+		private JTextArea area_descripcion = new JTextArea();
 	
 	//CONSTRUCTOR:
 	/**
@@ -66,9 +67,6 @@ public class PanelClase extends JPanel {
 	private void rellenar(JFrame ventana, PanelClase panelClase) {
 		JLabel tabla_res = new JLabel("Tabla resultados:");
 		tabla_res.setBounds(55, 20, 120, 30);
-		/*JTable tabla_clases = new JTable();
-		JScrollPane scroll_clases = new JScrollPane(tabla_clases);
-		scroll_clases.setBounds(50, 50, 250, 300);*/
 		
 		JLabel id = new JLabel("ID:");
 		id.setBounds(330, 50, 80, 30);
@@ -92,10 +90,7 @@ public class PanelClase extends JPanel {
 		
 		JLabel area_desc = new JLabel("Descripción de la clase seleccionada:");
 		area_desc.setBounds(605, 20, 220, 30);
-		JTextArea area_descripcion = new JTextArea();
-		area_descripcion.setBounds(600, 50, 350, 200);
-		area_descripcion.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		area_descripcion.setEditable(false);
+		JTextArea area_descripcion = extractedAreaDescripcion();
 		
 		JButton buscar = new JButton("Buscar");
 		buscar.setBounds(350, 300, 80, 40);
@@ -139,6 +134,21 @@ public class PanelClase extends JPanel {
 		this.add(buscar);
 		this.add(nuevo);
 		this.add(borrar);
+	}
+
+
+	/**
+	 * Metodo privado para la modularización
+	 * y encapsulamiento en favor de imprimir
+	 * en el JTextArea "area_descripcion" la
+	 * descripcion de la clase seleccionada.
+	 * @return
+	 */
+	private JTextArea extractedAreaDescripcion() {
+		area_descripcion.setBounds(600, 50, 350, 200);
+		area_descripcion.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		area_descripcion.setEditable(false);
+		return area_descripcion;
 	}
 	
 
@@ -212,6 +222,7 @@ public class PanelClase extends JPanel {
 				try {
 					if(!tabla.getValueAt(row, 0).toString().isBlank() || !tabla.getValueAt(row, 1).toString().isBlank() || !tabla.getValueAt(row, 2).toString().isBlank()) {
 						clase = new Clase(tabla.getValueAt(row, 0).toString(), tabla.getValueAt(row, 1).toString(), ClaseDAO.buscar_clase(tabla.getValueAt(row, 0).toString()).getDescripcion(), tabla.getValueAt(row, 2).toString());
+						area_descripcion.setText(clase.getDescripcion());
 					}else {
 						clase = new Clase("   ", "", "", "");
 					}
