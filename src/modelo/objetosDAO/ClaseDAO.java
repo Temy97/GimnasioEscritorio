@@ -82,7 +82,7 @@ public class ClaseDAO {
 	public static Clase buscar_clase(String id) {
 		Clase clase = null;
 		
-		String consulta = "SELECT * FROM clase WHERE dni LIKE '" + id + "';";
+		String consulta = "SELECT * FROM clase WHERE id LIKE '" + id + "';";
 		
 		try {
 			ResultSet rs = Singletone.getInstance().createStatement().executeQuery(consulta);
@@ -109,6 +109,29 @@ public class ClaseDAO {
 		Clase clase = null;
 		
 		String consulta = "SELECT * FROM clase WHERE nombre LIKE '" + nombre + "';";
+		
+		try {
+			ResultSet rs = Singletone.getInstance().createStatement().executeQuery(consulta);
+			rs.next();
+			clase = new Clase(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return clase;
+	}
+	
+	
+	/**
+	 * Devuelve la clase encontrada con el dni del profesor indicado
+	 * @param dni_profesor
+	 * @return
+	 */
+	public static Clase buscar_clase_profesor(String dni_profesor) {
+		Clase clase = null;
+		
+		String consulta = "SELECT * FROM clase WHERE dni_profesor LIKE '" + dni_profesor + "';";
 		
 		try {
 			ResultSet rs = Singletone.getInstance().createStatement().executeQuery(consulta);

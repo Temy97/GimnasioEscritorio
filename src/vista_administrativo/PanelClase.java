@@ -47,10 +47,10 @@ public class PanelClase extends JPanel {
 	 * @param ventana
 	 * @param id
 	 */
-	public PanelClase(JFrame ventana, String nombre) {
+	public PanelClase(JFrame ventana, String id) {
 		this.setLayout(null);
 		
-		scroll = new JScrollPane(crearTabla("", nombre, ""));
+		scroll = new JScrollPane(crearTabla(id, "", ""));
 		
 		rellenar(ventana, this);
 	}
@@ -102,13 +102,13 @@ public class PanelClase extends JPanel {
 		buscar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(!nombre_txt.getText().isBlank()) {
-					if(!nombre_txt.getText().isBlank()) {
-						((VentanaAdministrativo) ventana).llamarPanelClases(nombre_txt.getText());
+				if(!id_txt.getText().isBlank()) {
+					if(!id_txt.getText().isBlank()) {
+						((VentanaAdministrativo) ventana).llamarPanelClases(id_txt.getText());
 					}
 					colocarScroll();
 				}else {
-					JOptionPane.showMessageDialog(null, "Debe buscar mediante nombre");
+					JOptionPane.showMessageDialog(null, "Debe buscar mediante el id de la clase");
 				}
 			}
 		});
@@ -165,7 +165,7 @@ public class PanelClase extends JPanel {
 		int cont = 0;
 
 		for (int i = 0; i < clases.size(); i++) {
-			if(id.length() == 9 && id.equalsIgnoreCase(clases.get(i).getId())) {
+			if(id.length() == 3 && id.equalsIgnoreCase(clases.get(i).getId())) {
 				tuplas = new String[clases.size()][cabecera.length];
 
 				tuplas[0][0] = clases.get(i).getId();
@@ -210,8 +210,12 @@ public class PanelClase extends JPanel {
 				int row = tabla.rowAtPoint(evt.getPoint());
 
 				try {
-					clase = new Clase(tabla.getValueAt(row, 0).toString(), tabla.getValueAt(row, 1).toString(), ClaseDAO.buscar_clase(tabla.getValueAt(row, 0).toString()).getDescripcion(), tabla.getValueAt(row, 3).toString());
-
+					if(!tabla.getValueAt(row, 0).toString().isBlank() || !tabla.getValueAt(row, 1).toString().isBlank() || !tabla.getValueAt(row, 2).toString().isBlank()) {
+						clase = new Clase(tabla.getValueAt(row, 0).toString(), tabla.getValueAt(row, 1).toString(), ClaseDAO.buscar_clase(tabla.getValueAt(row, 0).toString()).getDescripcion(), tabla.getValueAt(row, 2).toString());
+					}else {
+						clase = new Clase("   ", "", "", "");
+					}
+						
 				}catch(NullPointerException e) {
 					clase = new Clase("   ", "", "", "");
 				}
