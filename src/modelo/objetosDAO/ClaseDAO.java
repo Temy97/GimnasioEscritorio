@@ -98,6 +98,38 @@ public class ClaseDAO {
 	
 	
 	/**
+	 * Se compruebe en la dbo si el id introducido ya está
+	 * ocupado por alguna clase, en caso de estar ocupado se
+	 * devuelve true, en caso de estar disponible se devuelve false.
+	 * @param id
+	 * @return
+	 */
+	public static boolean existe_id(String id) {
+		boolean existe = false;
+		String consulta = "SELECT * FROM clase WHERE id LIKE '" + id + "';";
+		
+		try {
+			ResultSet rs = Singletone.getInstance().createStatement().executeQuery(consulta);
+			rs.next();
+			
+			Clase clase = new Clase(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
+			
+			if(Integer.parseInt(clase.getId()) == Integer.parseInt(id)) {
+				existe = true;
+			}
+		} catch (SQLServerException e) {
+			e.printStackTrace();
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return existe;
+	}
+	
+	
+	/**
 	 * Busca en la tabla clase de la base de datos la entrada correspondiente al
 	 * nombre introducido como parametro, despues devuelve un objeto de tipo clase
 	 * con los datos de dicha entrada, en caso de no encontrar una coincidencia
@@ -166,6 +198,25 @@ public class ClaseDAO {
 		}
 		
 		return lista;
+	}
+	
+	
+	public static String id_libre(ArrayList<Clase> lista) {
+		String id_libre = "-1";
+		boolean libre = false;
+		
+		for (int i = 0; i < lista.size(); i++) {//3
+			if(libre == false) {
+				if(i == lista.size()) {
+					id_libre = Integer.toString(Integer.parseInt((lista.get(i).getId()) + 101));
+					libre = true;
+				}else if(lista.get(i).getId().equalsIgnoreCase(lista.get(++i).getId())){
+					
+				}
+			}
+		}
+		
+		return id_libre;
 	}
 	
 	

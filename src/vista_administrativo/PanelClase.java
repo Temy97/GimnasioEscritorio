@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import controlador.Utiles;
 import controlador.objetos.Clase;
 import modelo.objetosDAO.ClaseDAO;
 
@@ -110,6 +111,37 @@ public class PanelClase extends JPanel {
 		
 		JButton nuevo = new JButton("Crear nuevo");
 		nuevo.setBounds(500, 300, 120, 40);
+		nuevo.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!id_txt.getText().isBlank()) {
+					if(!nombre_txt.getText().isBlank()) {
+						if(!descripcion_txt.getText().isBlank()) {
+							if(!dni_prof_txt.getText().isBlank() || Utiles.comprobar_dni_sin_coincidencia(dni_prof_txt.getText())){
+								
+								Clase clase_nueva = new Clase(id_txt.getText(), nombre_txt.getText(), descripcion_txt.getText(), dni_prof_txt.getText());
+								 if(ClaseDAO.existe_id(clase_nueva.getId()) == false) {
+									System.out.println(ClaseDAO.insert_clase(clase_nueva));
+								 }else {
+									 //TODO comprobacion id libre
+									 JOptionPane.showMessageDialog(null, "ID ocupado.");
+								 }
+								
+							}else {
+								JOptionPane.showMessageDialog(null, "DNI inválido.");
+							}
+						}else {
+							JOptionPane.showMessageDialog(null, "Falta la descripción de la clase");
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "Falta nombre de la clase.");
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "El ide debe ser un número a partir del 101,\nten en cuenta que no puede haber id duplicados\nasí que se mostraá el primero libre en caso de duplicidad.");
+				}
+			}
+		});
+		
 		JButton borrar = new JButton("Borrar");
 		borrar.setBounds(700, 300, 120, 40);
 		
