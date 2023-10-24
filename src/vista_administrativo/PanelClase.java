@@ -121,7 +121,11 @@ public class PanelClase extends JPanel {
 								
 								Clase clase_nueva = new Clase(id_txt.getText(), nombre_txt.getText(), descripcion_txt.getText(), dni_prof_txt.getText());
 								 if(ClaseDAO.existe_id(clase_nueva.getId()) == false) {
-									System.out.println(ClaseDAO.insert_clase(clase_nueva));
+									if(ClaseDAO.insert_clase(clase_nueva)) {
+										JOptionPane.showMessageDialog(null, "Clase añadida correctamente.");
+									}else {
+										JOptionPane.showMessageDialog(null, "No pudo añadirse la clase, posiblemente haya usado un dni de profesor inválido.");
+									}
 								 }else {
 									 //TODO comprobacion id libre
 									 JOptionPane.showMessageDialog(null, "ID ocupado.");

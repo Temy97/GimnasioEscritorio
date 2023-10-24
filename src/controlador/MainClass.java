@@ -14,6 +14,7 @@ import org.neodatis.odb.ODBFactory;
 import org.neodatis.odb.Objects;
 
 import controlador.objetos.Administrativo;
+import controlador.objetos.Clase;
 import vista_administrativo.VentanaAdministrativo;
 import vista_cliente.VentanaCliente;
 import vista_login.VistaLogIn;
