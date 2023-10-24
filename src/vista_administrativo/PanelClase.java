@@ -127,8 +127,7 @@ public class PanelClase extends JPanel {
 										JOptionPane.showMessageDialog(null, "No pudo añadirse la clase, posiblemente haya usado un dni de profesor inválido.");
 									}
 								 }else {
-									 //TODO comprobacion id libre
-									 JOptionPane.showMessageDialog(null, "ID ocupado.");
+									 JOptionPane.showMessageDialog(null, "ID ocupado, el primer id disponible es: " + ClaseDAO.id_libre());
 								 }
 								
 							}else {

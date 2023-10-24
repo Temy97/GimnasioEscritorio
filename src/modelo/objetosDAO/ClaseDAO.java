@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
@@ -201,22 +202,23 @@ public class ClaseDAO {
 	}
 	
 	
-	public static String id_libre(ArrayList<Clase> lista) {
-		String id_libre = "-1";
-		boolean libre = false;
+	/**
+	 * Se busca el primer id libre.
+	 * @param lista
+	 * @return
+	 */
+	public static String id_libre() {
+		ArrayList<Clase> lista = ClaseDAO.todasLasClases();
+		int id_libre = 101;
 		
-		for (int i = 0; i < lista.size(); i++) {//3
-			if(libre == false) {
-				if(i == lista.size()) {
-					id_libre = Integer.toString(Integer.parseInt((lista.get(i).getId()) + 101));
-					libre = true;
-				}else if(lista.get(i).getId().equalsIgnoreCase(lista.get(++i).getId())){
-					
-				}
+		for (Iterator iterator = lista.iterator(); iterator.hasNext();) {
+			Clase clase = (Clase) iterator.next();
+			if(id_libre <= Integer.parseInt(clase.getId())) {
+				id_libre = Integer.parseInt(clase.getId());
 			}
 		}
 		
-		return id_libre;
+		return Integer.toString(++id_libre);
 	}
 	
 	
