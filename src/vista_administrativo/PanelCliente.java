@@ -2,26 +2,69 @@ package vista_administrativo;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import controlador.Utiles;
+import controlador.objetos.Administrativo;
+import controlador.objetos.Cliente;
+import modelo.objetosDAO.ClienteDAO;
+
 public class PanelCliente extends JPanel {
 	
 	//Atributos:
+	private final String cabecera[] = {"DNI", "Pasword", "Nombre", "Apellidos", "edad", "Empleado/En paro", "Cuota"};
+	
+	private Cliente cliente = new Cliente();
+	private PanelCliente yo = this;
+	private JScrollPane scroll = new JScrollPane(crearTabla("", "", ""));
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
 	
 	//CONSTRUCTOR:
+	/**
+	 * Constructor por defecto, genera la ventana
+	 * junto con los botones y los inputs pero sin
+	 * una tabla.
+	 * @param ventana
+	 */
 	public PanelCliente(JFrame ventana) {
 		this.setLayout(null);
 		
+		rellenar(ventana, false);
+	}
+	
+	
+	/**
+	 * Genera la ventana en funcion de los campos
+	 * de busqueda recibidos para rellenar la tabla
+	 * @param ventana
+	 * @param camposBusqueda
+	 */
+	public PanelCliente(JFrame ventana, String... camposBusqueda) {
+		this.setLayout(null);
+		
+		scroll = new JScrollPane(crearTabla(camposBusqueda[0], camposBusqueda[1], camposBusqueda[2]));
+		
+		rellenar(ventana, true);
+	}
+
+
+	//Metodos:
+	private void rellenar(JFrame ventana, boolean sacarTabla) {
 		/* Parametros y boton para buscar o borrar
 		 * al cliente, en caso de no encontrar
 		 * resultados mostrat mensaje de error,
@@ -46,8 +89,28 @@ public class PanelCliente extends JPanel {
 		JTextField text_dni_buscar = new JTextField();
 		text_dni_buscar.setBounds(300, 65, 100, 30);
 		
+		//botones buscar y borrar
 		JButton buscar = new JButton("Buscar");
 		buscar.setBounds(700, 40, 80, 40);
+		buscar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!text_dni_buscar.getText().isBlank() || !text_nombre_buscar.getText().isBlank() || !text_apellido_buscar.getText().isBlank()) {
+					if(text_dni_buscar.getText().length() == 9) {
+						((VentanaAdministrativo) ventana).llamarPanelClientes(text_dni_buscar.getText(), "", "");
+					} else {
+						if(text_nombre_buscar.getText().isBlank() == false && text_apellido_buscar.getText().isBlank() == false) {
+							((VentanaAdministrativo) ventana).llamarPanelClientes("", text_nombre_buscar.getText(), text_apellido_buscar.getText());
+						}else if(text_nombre_buscar.getText().isBlank() == false && text_apellido_buscar.getText().isBlank() == true) {
+							((VentanaAdministrativo) ventana).llamarPanelClientes("", text_nombre_buscar.getText(), "");
+						}else if(text_nombre_buscar.getText().isBlank() == true && text_apellido_buscar.getText().isBlank() == false) {
+							((VentanaAdministrativo) ventana).llamarPanelClientes("", "", text_apellido_buscar.getText());
+						}
+					}
+				}
+			}
+		});
+		
 		JButton borrar = new JButton("Borrar");
 		borrar.setBounds(840, 40, 80, 40);
 		
@@ -96,8 +159,10 @@ public class PanelCliente extends JPanel {
 		JTextField text_cuota_nuevo = new JTextField();
 		text_cuota_nuevo.setBounds(20, 360, 100, 30);
 		
+		//boton crear nuevo cliente
 		JButton crear = new JButton("Crear Nuevo");
 		crear.setBounds(30, 420, 120, 60);
+		
 		
 		
 		JSeparator separador2 = new JSeparator();
@@ -111,11 +176,16 @@ public class PanelCliente extends JPanel {
 		 * boton que guarde/actualice los datos
 		 * modificados en la tabla.
 		 */
-		
+		if(sacarTabla) {
+			colocarScroll();
+		}
 		JTable tabla = new JTable();
 		JScrollPane scroll = new JScrollPane(tabla);
 		scroll.setBounds(220, 140, 700, 300);
+
 		
+		
+		//boton para modificar los datos de un cliente con los tados editados de la tabla
 		JButton modificar = new JButton("Modificar Datos");
 		modificar.setBounds(750, 455, 150, 40);
 		
@@ -153,4 +223,111 @@ public class PanelCliente extends JPanel {
 		this.add(modificar);
 	}
 	
+	
+	/**
+	 * Tabla a rellenar en funcion de los campos recibidos.
+	 * @param dni
+	 * @param pasword
+	 * @param nombre
+	 * @param apellidos
+	 * @param edad
+	 * @param estadoEmpleado
+	 * @param cuota
+	 * @return
+	 */
+	private JTable crearTabla(String dni, String nombre, String apellido) {
+		ArrayList<Cliente> clientes = ClienteDAO.todos_los_clientes();
+		
+		String[][] tuplas = new String[clientes.size()][cabecera.length];
+		
+		for (int i = 0; i < clientes.size(); i++) {
+			for (int j = 0; j < cabecera.length; j++) {
+				tuplas[i][j] = " ";
+			}
+		}
+		
+		int cont = 0;
+		
+		for (int i = 0; i < clientes.size(); i++) {
+			if(dni.length() == 9 && dni.equalsIgnoreCase(clientes.get(i).getDni())) {
+				tuplas = new String[clientes.size()][cabecera.length];
+				
+				tuplas[0][0] = clientes.get(i).getDni();
+				tuplas[0][1] = clientes.get(i).getPaswordAsterisco();
+				tuplas[0][2] = clientes.get(i).getNombre();
+				tuplas[0][3] = clientes.get(i).getApellidos();
+				tuplas[0][4] = Integer.toString(clientes.get(i).getEdad());
+				tuplas[0][5] = clientes.get(i).isEstadoChar();
+				tuplas[0][6] = Double.toString(clientes.get(i).getCuota());
+				
+				i = clientes.size() +1;
+				
+			}else {
+				if(nombre.isBlank() == false && apellido.isBlank() == false) {
+					if(nombre.equalsIgnoreCase(clientes.get(i).getNombre()) && apellido.equalsIgnoreCase(clientes.get(i).getApellidos())) {
+						tuplas[cont][0] = clientes.get(i).getDni();
+						tuplas[cont][1] = clientes.get(i).getPaswordAsterisco();
+						tuplas[cont][2] = clientes.get(i).getNombre();
+						tuplas[cont][3] = clientes.get(i).getApellidos();
+						tuplas[cont][4] = Integer.toString(clientes.get(i).getEdad());
+						tuplas[cont][5] = clientes.get(i).isEstadoChar();
+						tuplas[cont][6] = Double.toString(clientes.get(i).getCuota());
+						
+						cont++;
+					}
+				}else if(nombre.isBlank() == false && apellido.isBlank() == true) {
+					if(nombre.equalsIgnoreCase(clientes.get(i).getNombre())) {
+						tuplas[cont][0] = clientes.get(i).getDni();
+						tuplas[cont][1] = clientes.get(i).getPaswordAsterisco();
+						tuplas[cont][2] = clientes.get(i).getNombre();
+						tuplas[cont][3] = clientes.get(i).getApellidos();
+						tuplas[cont][4] = Integer.toString(clientes.get(i).getEdad());
+						tuplas[cont][5] = clientes.get(i).isEstadoChar();
+						tuplas[cont][6] = Double.toString(clientes.get(i).getCuota());
+						
+						cont++;
+					}
+				}else if(nombre.isBlank() == true && apellido.isBlank() == false) {
+					if(apellido.equalsIgnoreCase(clientes.get(i).getApellidos())) {
+						tuplas[cont][0] = clientes.get(i).getDni();
+						tuplas[cont][1] = clientes.get(i).getPaswordAsterisco();
+						tuplas[cont][2] = clientes.get(i).getNombre();
+						tuplas[cont][3] = clientes.get(i).getApellidos();
+						tuplas[cont][4] = Integer.toString(clientes.get(i).getEdad());
+						tuplas[cont][5] = clientes.get(i).isEstadoChar();
+						tuplas[cont][6] = Double.toString(clientes.get(i).getCuota());
+						
+						cont++;
+					}
+				}
+			}
+		}
+		
+		JTable tabla = new JTable(tuplas, cabecera);
+		tabla.addMouseListener(new MouseAdapter() {
+			@Override
+		    public void mouseClicked(MouseEvent evt) {
+				int row = tabla.rowAtPoint(evt.getPoint());
+				
+				try {
+					cliente = new Cliente(tabla.getValueAt(row, 0).toString(), tabla.getValueAt(row, 1).toString(), tabla.getValueAt(row, 2).toString(), tabla.getValueAt(row, 3).toString(), Integer.parseInt(tabla.getValueAt(row, 4).toString()), Utiles.esEstadoChar(tabla.getValueAt(row, 5).toString()), Double.parseDouble(tabla.getValueAt(row, 6).toString()));
+				
+				}catch(NullPointerException e) {
+					cliente = new Cliente();
+				}
+			}
+		});
+		
+		return tabla;
+	}
+	
+	
+	/**
+	 * Coloca el JScrollPane.
+	 */
+	private void colocarScroll() {
+		yo.remove(scroll);
+		scroll.setBounds(220, 140, 700, 300);
+		yo.add(scroll);
+	}
 }

@@ -45,4 +45,18 @@ public class Utiles {
 		
 		return valido;
 	}
+	
+	
+	/**
+	 * devuelve el char correspondiente al estado
+	 * del cliente. S = true, N = false.
+	 * @param str
+	 */
+	public static boolean esEstadoChar(String str) {
+		if(str.equals("S")) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }

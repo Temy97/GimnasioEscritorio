@@ -238,6 +238,18 @@ public class VentanaAdministrativo extends JFrame {
 	}
 	
 	
+	/**
+	 * Provoca que la ventana muestre el JPanel correspondiente.
+	 */
+	public void llamarPanelClientes(String... camposBusqueda) {
+		limpiarContenido(panel);
+		limpiarContenido(panel_cliente);
+		panel_cliente = new PanelCliente(this, camposBusqueda);
+		panel = panel_cliente;
+		yo.setContentPane(panel);
+	}
+	
+	
 	//--paneles de profesores
 	/**
 	 * Provoca que la ventana muestre el JPanel correspondiente.
