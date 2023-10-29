@@ -51,11 +51,11 @@ public class ClaseDAO {
 	 * @param id
 	 * @return
 	 */
-	public static boolean borrar_profesor(String id) {
+	public static boolean borrar_clase(String id) {
 		boolean borrado = false;
 		
 		if(id.length() == 3) {
-			String instruccion_delete = "DELETE FROM clase WHERE dni LIKE '" + id + "';";
+			String instruccion_delete = "DELETE FROM clase WHERE id LIKE '" + id + "';";
 			
 			try {
 				PreparedStatement st = Singletone.getInstance().prepareStatement(instruccion_delete);

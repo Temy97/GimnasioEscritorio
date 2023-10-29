@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import controlador.Utiles;
 import controlador.objetos.Clase;
 import modelo.objetosDAO.ClaseDAO;
+import modelo.objetosDAO.ProfesorDAO;
 
 public class PanelClase extends JPanel {
 	
@@ -147,6 +148,22 @@ public class PanelClase extends JPanel {
 		
 		JButton borrar = new JButton("Borrar");
 		borrar.setBounds(700, 300, 120, 40);
+		borrar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(clase.getId().isBlank() == false) {
+					if(JOptionPane.showOptionDialog(null, "Realmente desea borrar la clase de: " + clase.getNombre(), "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, opciones, opciones[0]) == 0) {
+						if(ClaseDAO.borrar_clase(clase.getId())) {
+							JOptionPane.showMessageDialog(null, "La clase ha sido eliminada exitosamente.", "", JOptionPane.INFORMATION_MESSAGE, null);
+						}else {
+							JOptionPane.showMessageDialog(null, "Se ha producido un error al borrar la clase.", "", JOptionPane.WARNING_MESSAGE, null);
+						}
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "No hay ningun profesor seleccionado correctamente.", "", JOptionPane.ERROR_MESSAGE, null);
+				}
+			}
+		});
 		
 		
 		//this.add(scroll_clases);
@@ -258,6 +275,7 @@ public class PanelClase extends JPanel {
 					if(!tabla.getValueAt(row, 0).toString().isBlank() || !tabla.getValueAt(row, 1).toString().isBlank() || !tabla.getValueAt(row, 2).toString().isBlank()) {
 						clase = new Clase(tabla.getValueAt(row, 0).toString(), tabla.getValueAt(row, 1).toString(), ClaseDAO.buscar_clase(tabla.getValueAt(row, 0).toString()).getDescripcion(), tabla.getValueAt(row, 2).toString());
 						area_descripcion.setText(clase.getDescripcion());
+						
 					}else {
 						clase = new Clase("   ", "", "", "");
 					}
