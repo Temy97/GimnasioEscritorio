@@ -94,6 +94,20 @@ public class Cliente extends SuperClienteAdministrativo{
 		
 		
 		/**
+		 * Comprueba que el string sea valido, S o N.
+		 * @param str
+		 * @return
+		 */
+		public static boolean estadoValido(String str) {
+			if(str.equals("S") || str.equals("N")) {
+				return true;
+			}else {
+				return false;
+			}
+		}
+		
+		
+		/**
 		 * Devuleve el pasword del cliente
 		 * convertido en cadena de asteriscos.
 		 * @return

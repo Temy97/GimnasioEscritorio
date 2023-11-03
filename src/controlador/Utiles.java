@@ -62,6 +62,36 @@ public class Utiles {
 	
 	
 	/**
+	 * Comprueba si la cadena de texto es un entero
+	 * @param str
+	 * @return
+	 */
+	public static boolean isInt(String str) {
+		try {
+			Integer.parseInt(str);
+			return true;
+		}catch(NumberFormatException e) {
+			return false;
+		}
+	}
+	
+	
+	/**
+	 * Comprueba si la cadena de texto es un {@code Double}
+	 * @param str
+	 * @return
+	 */
+	public static boolean isDouble(String str) {
+		try {
+			Double.parseDouble(str);
+			return true;
+		}catch(NumberFormatException e) {
+			return false;
+		}
+	}
+	
+	
+	/**
 	 * codificador sencillo.
 	 * @param pasword
 	 * @return

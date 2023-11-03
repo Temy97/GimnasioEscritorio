@@ -179,6 +179,41 @@ public class PanelCliente extends JPanel {
 		//boton crear nuevo cliente
 		JButton crear = new JButton("Crear Nuevo");
 		crear.setBounds(30, 420, 120, 60);
+		crear.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!text_dni_nuevo.getText().isBlank() && Utiles.comprobar_dni_sin_coincidencia(text_dni_nuevo.getText())) {
+					if(!text_pwd_nuevo.getText().isBlank()) {
+						if(!text_nombre_nuevo.getText().isBlank()) {
+							if(!text_apellido_nuevo.getText().isBlank()) {
+								if(!text_edad_nuevo.getText().isBlank() && Utiles.isInt(text_edad_nuevo.getText())) {
+									if(!text_desempleado_nuevo.getText().isBlank() && Cliente.estadoValido(text_desempleado_nuevo.getText())) {
+										if(!text_cuota_nuevo.getText().isBlank() && Utiles.isDouble(text_cuota_nuevo.getText())) {
+											ClienteDAO.insert_cliente(new Cliente(text_dni_nuevo.getText(), text_pwd_nuevo.getText(), text_nombre_nuevo.getText(), text_apellido_nuevo.getText(), Integer.parseInt(text_edad_nuevo.getText()), Cliente.generarEstado(text_desempleado_nuevo.getText()), Double.parseDouble(text_cuota_nuevo.getText())));
+											JOptionPane.showMessageDialog(null, "Se ha guardado correctamente el cliente.", "", JOptionPane.WARNING_MESSAGE, null);
+										}else {
+											JOptionPane.showMessageDialog(null, "El valor indicado en el campo cuota es inválido.", "", JOptionPane.WARNING_MESSAGE, null);
+										}
+									}else {
+										JOptionPane.showMessageDialog(null, "El valor indicado en el campo desempleado es diferente de \"S\" o \"N\".", "", JOptionPane.WARNING_MESSAGE, null);
+									}
+								}else {
+									JOptionPane.showMessageDialog(null, "El valor introducido en edad es inválido.", "", JOptionPane.WARNING_MESSAGE, null);
+								}
+							}else {
+								JOptionPane.showMessageDialog(null, "Debe escribir apellido.", "", JOptionPane.WARNING_MESSAGE, null);
+							}
+						}else {
+							JOptionPane.showMessageDialog(null, "Debe escribir nombre.", "", JOptionPane.WARNING_MESSAGE, null);
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "Debe escribir una contraseña.", "", JOptionPane.WARNING_MESSAGE, null);
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "Debe escribir un DNI válido, 8 dígitos y una letra [en mayúsculas].", "", JOptionPane.WARNING_MESSAGE, null);
+				}
+			}
+		});
 		
 		
 		
