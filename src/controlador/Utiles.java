@@ -59,4 +59,14 @@ public class Utiles {
 			return false;
 		}
 	}
+	
+	
+	/**
+	 * codificador sencillo.
+	 * @param pasword
+	 * @return
+	 */
+	public static String codificador(String pasword) {
+		return "$$" + pasword + "$$";
+	}
 }
