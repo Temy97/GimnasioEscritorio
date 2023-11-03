@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import controlador.Utiles;
 import controlador.objetos.Administrativo;
 import controlador.objetos.Cliente;
+import modelo.objetosDAO.AdministrativoDAO;
 import modelo.objetosDAO.ClienteDAO;
 
 public class PanelCliente extends JPanel {
@@ -113,6 +114,22 @@ public class PanelCliente extends JPanel {
 		
 		JButton borrar = new JButton("Borrar");
 		borrar.setBounds(840, 40, 80, 40);
+		borrar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(cliente.getDni().isBlank() == false) {
+					if(JOptionPane.showOptionDialog(null, "Realmente desea borrar a: " + cliente.getNombre() + " [dni: " + cliente.getDni() + "]", "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, new String[] {"si", "no"}, "si") == 0){
+						if(ClienteDAO.borrar_cliente_por_dni(cliente.getDni())){
+							JOptionPane.showMessageDialog(null, "El cliente ha sido eliminado exitosamente.", "", JOptionPane.INFORMATION_MESSAGE, null);
+						}else {
+							JOptionPane.showMessageDialog(null, "Se ha producido un error al borrar al cliente.", "", JOptionPane.WARNING_MESSAGE, null);
+						}
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "No hay ningun cliente seleccionado correctamente.", "", JOptionPane.ERROR_MESSAGE, null);
+				}
+			}
+		});
 		
 		
 		JSeparator separador1 = new JSeparator();
