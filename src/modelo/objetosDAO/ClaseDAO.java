@@ -8,8 +8,8 @@ import java.util.Iterator;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
-import controlador.objetos.Clase;
-import modelo.Singletone;
+import controlador.servicios.Singletone;
+import modelo.objetos.Clase;
 
 public class ClaseDAO {
 	

@@ -6,8 +6,8 @@ import org.neodatis.odb.ODB;
 import org.neodatis.odb.ODBFactory;
 import org.neodatis.odb.Objects;
 
-import controlador.objetos.Administrativo;
-import controlador.objetos.Cliente;
+import modelo.objetos.Administrativo;
+import modelo.objetos.Cliente;
 
 public class NeodatisDAO {
 	//ATRIBUTOS:

@@ -1,4 +1,4 @@
-package controlador.objetos;
+package modelo.objetos;
 
 public class Cliente extends SuperClienteAdministrativo{
 	

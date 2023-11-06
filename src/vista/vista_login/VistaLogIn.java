@@ -1,4 +1,4 @@
-package vista_login;
+package vista.vista_login;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -13,11 +13,11 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import controlador.objetos.Administrativo;
-import controlador.objetos.Cliente;
+import modelo.objetos.Administrativo;
+import modelo.objetos.Cliente;
 import modelo.objetosDAO.NeodatisDAO;
-import vista_administrativo.VentanaAdministrativo;
-import vista_cliente.VentanaCliente;
+import vista.vista_administrativo.VentanaAdministrativo;
+import vista.vista_cliente.VentanaCliente;
 
 @SuppressWarnings("serial")
 public class VistaLogIn extends JFrame{

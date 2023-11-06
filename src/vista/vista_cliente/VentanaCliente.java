@@ -1,4 +1,4 @@
-package vista_cliente;
+package vista.vista_cliente;
 
 import java.awt.Font;
 import java.awt.Image;
@@ -19,9 +19,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 
-import controlador.objetos.Administrativo;
-import controlador.objetos.Cliente;
-import modelo.Singletone;
+import controlador.servicios.Singletone;
+import modelo.objetos.Administrativo;
+import modelo.objetos.Cliente;
 import modelo.objetosDAO.AdministrativoDAO;
 import modelo.objetosDAO.ClienteDAO;
 
@@ -161,7 +161,7 @@ public class VentanaCliente extends JFrame {
 		salir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				modelo.Singletone.cierre();
+				controlador.servicios.Singletone.cierre();
 				System.exit(0);
 			}
 		});

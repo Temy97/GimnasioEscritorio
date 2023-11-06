@@ -1,4 +1,4 @@
-package vista_cliente;
+package vista.vista_cliente;
 
 import java.awt.Dimension;
 import java.awt.Font;

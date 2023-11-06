@@ -1,4 +1,4 @@
-package vista_administrativo;
+package vista.vista_administrativo;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -17,7 +17,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import controlador.objetos.Administrativo;
+import modelo.objetos.Administrativo;
 
 public class VentanaAdministrativo extends JFrame {
 
@@ -130,7 +130,7 @@ public class VentanaAdministrativo extends JFrame {
 		salir.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				modelo.Singletone.cierre();
+				controlador.servicios.Singletone.cierre();
 				System.exit(0);
 			}
 		});

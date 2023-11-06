@@ -1,4 +1,4 @@
-package vista_administrativo;
+package vista.vista_administrativo;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -17,8 +17,8 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import controlador.Utiles;
-import controlador.objetos.Clase;
+import modelo.Utiles;
+import modelo.objetos.Clase;
 import modelo.objetosDAO.ClaseDAO;
 import modelo.objetosDAO.ProfesorDAO;
 

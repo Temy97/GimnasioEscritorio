@@ -1,4 +1,4 @@
-package modelo;
+package controlador.servicios;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

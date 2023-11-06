@@ -5,9 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import controlador.objetos.Administrativo;
-import controlador.objetos.Profesor;
-import modelo.Singletone;
+import controlador.servicios.Singletone;
+import modelo.objetos.Administrativo;
+import modelo.objetos.Profesor;
 
 public class ProfesorDAO {
 	

@@ -1,4 +1,4 @@
-package vista_cliente;
+package vista.vista_cliente;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -23,7 +23,7 @@ import javax.swing.border.EtchedBorder;
 //import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import controlador.objetos.Clase;
+import modelo.objetos.Clase;
 import modelo.objetosDAO.ClaseDAO;
 import modelo.objetosDAO.ProfesorDAO;
 

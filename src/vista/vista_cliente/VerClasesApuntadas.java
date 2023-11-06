@@ -1,4 +1,4 @@
-package vista_cliente;
+package vista.vista_cliente;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -16,8 +16,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
-import controlador.objetos.Cliente;
-import modelo.SecuencialClasesApuntadas;
+import controlador.SecuencialClasesApuntadas;
+import modelo.objetos.Cliente;
 import modelo.objetosDAO.ClaseDAO;
 import modelo.objetosDAO.ClienteDAO;
 

@@ -1,4 +1,4 @@
-package modelo;
+package controlador;
 
 import java.io.DataInputStream;
 import java.io.File;

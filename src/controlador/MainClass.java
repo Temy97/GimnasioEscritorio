@@ -1,23 +1,22 @@
 package controlador;
 
-import controlador.objetos.SuperClienteAdministrativo;
+import modelo.objetos.Administrativo;
+import modelo.objetos.Clase;
+import modelo.objetos.Cliente;
+import modelo.objetos.SuperClienteAdministrativo;
 import modelo.objetosDAO.AdministrativoDAO;
 import modelo.objetosDAO.ClaseDAO;
 import modelo.objetosDAO.ClienteDAO;
 import modelo.objetosDAO.NeodatisDAO;
-import controlador.objetos.Cliente;
+import vista.vista_administrativo.VentanaAdministrativo;
+import vista.vista_cliente.VentanaCliente;
+import vista.vista_login.VistaLogIn;
 
 import java.io.File;
 
 import org.neodatis.odb.ODB;
 import org.neodatis.odb.ODBFactory;
 import org.neodatis.odb.Objects;
-
-import controlador.objetos.Administrativo;
-import controlador.objetos.Clase;
-import vista_administrativo.VentanaAdministrativo;
-import vista_cliente.VentanaCliente;
-import vista_login.VistaLogIn;
 
 public class MainClass {
 	

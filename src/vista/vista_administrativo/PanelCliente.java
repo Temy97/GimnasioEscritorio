@@ -1,4 +1,4 @@
-package vista_administrativo;
+package vista.vista_administrativo;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -18,9 +18,9 @@ import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import controlador.Utiles;
-import controlador.objetos.Administrativo;
-import controlador.objetos.Cliente;
+import modelo.Utiles;
+import modelo.objetos.Administrativo;
+import modelo.objetos.Cliente;
 import modelo.objetosDAO.AdministrativoDAO;
 import modelo.objetosDAO.ClienteDAO;
 

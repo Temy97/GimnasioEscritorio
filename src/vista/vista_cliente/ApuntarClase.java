@@ -1,4 +1,4 @@
-package vista_cliente;
+package vista.vista_cliente;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,9 +19,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import controlador.objetos.Cliente;
-import modelo.GenerarXML;
-import modelo.SecuencialClasesApuntadas;
+import controlador.GenerarXML;
+import controlador.SecuencialClasesApuntadas;
+import modelo.objetos.Cliente;
 import modelo.objetosDAO.ClaseDAO;
 
 @SuppressWarnings("serial")

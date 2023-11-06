@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
-import controlador.objetos.Administrativo;
-import controlador.objetos.Cliente;
-import modelo.Singletone;
+import controlador.servicios.Singletone;
+import modelo.objetos.Administrativo;
+import modelo.objetos.Cliente;
 
 public class AdministrativoDAO {
 	

@@ -1,4 +1,4 @@
-package vista_cliente;
+package vista.vista_cliente;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import controlador.objetos.Cliente;
+import modelo.objetos.Cliente;
 import modelo.objetosDAO.ClienteDAO;
 
 @SuppressWarnings("serial")
