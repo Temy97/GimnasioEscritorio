@@ -1,7 +1,6 @@
 package vista.vista_administrativo;
 
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -11,11 +10,9 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import modelo.objetos.Administrativo;
 
@@ -39,7 +36,6 @@ public class VentanaAdministrativo extends JFrame {
 	private PanelCliente panel_cliente = new PanelCliente(this);
 	private PanelProfesor panel_profesor = new PanelProfesor(this);
 	
-	private static Administrativo datos_administrativo;
 	//public static final String DNI_EJEMPLO = "12345678D";
 	
 	//CONSTRUCTOR:
@@ -62,7 +58,7 @@ public class VentanaAdministrativo extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		
-		this.setJMenuBar(barraCliente());
+		this.setJMenuBar(barraAdministrativo());
 		this.setContentPane(panel);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,7 +73,7 @@ public class VentanaAdministrativo extends JFrame {
 	}*/
 	
 	
-	private JMenuBar barraCliente() {
+	private JMenuBar barraAdministrativo() {
 		JMenuBar menu_bar = new JMenuBar();
 		
 		JMenuItem inicio = new JMenuItem("Inicio");

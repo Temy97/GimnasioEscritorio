@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -234,12 +236,27 @@ public class PanelCliente extends JPanel {
 		JTable tabla = new JTable();
 		JScrollPane scroll = new JScrollPane(tabla);
 		scroll.setBounds(220, 140, 700, 300);
-
 		
 		
-		//boton para modificar los datos de un cliente con los tados editados de la tabla
+		//boton para modificar los datos de un cliente con los datados editados de la tabla
 		JButton modificar = new JButton("Modificar Datos");
 		modificar.setBounds(750, 455, 150, 40);
+		modificar.setToolTipText("Se modificará la ultima fila seleccionada; los datos correspondientes a -> " + cliente.getNombre() + " [dni: " + cliente.getDni() + "]");
+
+		modificar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!cliente.getDni().isBlank() || !cliente.getNombre().isBlank()) {
+					if(JOptionPane.showOptionDialog(null, "Realmente desea actualizar los datos de: " + cliente.getNombre() + " [dni: " + cliente.getDni() + "]", "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, new String[] {"si", "no"}, "si") == 0) {
+						if(ClienteDAO.editar_datos_cliente(cliente.getDni(), cliente)) {
+							JOptionPane.showMessageDialog(null, "Se ha actualizado el cliente correctamente.", "", JOptionPane.ERROR_MESSAGE, null);
+						}else {
+							JOptionPane.showMessageDialog(null, "No pudo actualizarse el cliente seleccionado.", "", JOptionPane.ERROR_MESSAGE, null);
+						}
+					}
+				}
+			}
+		});
 		
 		
 		this.add(nombre_buscar);
@@ -367,6 +384,27 @@ public class PanelCliente extends JPanel {
 				}catch(NullPointerException e) {
 					cliente = new Cliente();
 				}
+			}
+		});
+		tabla.addFocusListener(new FocusListener() {
+			@Override
+			public void focusGained(FocusEvent e) {}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				tabla.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent evt) {
+						int row = tabla.rowAtPoint(evt.getPoint());
+
+						try {
+							cliente = new Cliente(tabla.getValueAt(row, 0).toString(), tabla.getValueAt(row, 1).toString(), tabla.getValueAt(row, 2).toString(), tabla.getValueAt(row, 3).toString(), Integer.parseInt(tabla.getValueAt(row, 4).toString()), Utiles.esEstadoChar(tabla.getValueAt(row, 5).toString()), Double.parseDouble(tabla.getValueAt(row, 6).toString()));
+
+						}catch(NullPointerException e) {
+							cliente = new Cliente();
+						}
+					}
+				});
 			}
 		});
 		

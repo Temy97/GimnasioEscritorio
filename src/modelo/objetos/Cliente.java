@@ -14,7 +14,11 @@ public class Cliente extends SuperClienteAdministrativo{
 		
 		
 		//CONSTRUCTORES:
-		public Cliente() {super();};
+		public Cliente() {
+			super();
+			super.setNombre("");
+			super.setDni("");
+		};
 		
 		
 		public Cliente(String dni, String pasword, String nombre, String apellidos, int edad, boolean estado_empleo, double cuota) {
